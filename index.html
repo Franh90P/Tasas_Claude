@@ -311,6 +311,69 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .chev{padding:.3rem;margin:-.3rem;border-radius:.5rem}
 .chev:hover{background:rgba(var(--bg-rgb),.25)}
 
+/* ---------- Inicio: vista general ---------- */
+.home{display:flex;flex-direction:column;gap:1.25rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:1rem}
+.kpi{padding:1rem 1.1rem;border-radius:1.2rem;min-width:0}
+.kpi svg{width:1.2rem;height:1.2rem}
+.kpi .lab{margin:.5rem 0 0}
+.kpi .v{font-size:1.8rem;font-weight:800;line-height:1.15}
+.kpi .v small{font-size:.9rem;color:var(--ink-3);font-weight:600}
+.kpi .v.sm{font-size:1.4rem;padding-top:.2rem}
+.kpi .s{font-size:.72rem;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sec-t{margin:.4rem 0 -.4rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.2em;font-weight:700;color:var(--ink-3)}
+.now{padding:.6rem}
+.now-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.6fr) minmax(0,.9fr);gap:1.2rem;align-items:center;width:100%;padding:.8rem 1rem;border-radius:1rem;text-align:left;transition:background .2s}
+.now-row:hover{background:var(--glass-2)}
+.now-row b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.now-row small{display:block;font-size:.72rem;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nr-prog .bar{height:.5rem;margin:0 0 .35rem}
+.nr-eta{text-align:right}
+.depts{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1.1rem}
+.dept{padding:0;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .25s,border-color .25s}
+.dept:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.dept.off{cursor:default;opacity:.7}
+.dept.off:hover{transform:none}
+.d-img{position:relative;aspect-ratio:2/1;overflow:hidden;background:linear-gradient(160deg,rgba(var(--deep-rgb),.55),rgba(var(--bg-rgb),.35));border-bottom:1px solid var(--line)}
+.d-img img{width:100%;height:100%;object-fit:cover;display:block}
+.d-badge{position:absolute;left:.7rem;bottom:.7rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .75rem;border-radius:99px;background:rgba(var(--bg-rgb),.72);color:var(--ink-2);backdrop-filter:blur(6px)}
+.d-badge.on{background:rgba(var(--accent-2-rgb),.9);color:var(--on-accent)}
+.d-cam{position:absolute;top:.6rem;right:.6rem;width:2rem;height:2rem;border-radius:.7rem;display:grid;place-items:center;background:rgba(var(--bg-rgb),.65);color:var(--ink);opacity:.8;transition:opacity .2s,background .2s}
+.d-cam:hover{opacity:1;background:rgba(var(--bg-rgb),.9)}
+.d-cam svg{width:1rem;height:1rem}
+.d-reset{right:2.9rem;font-size:.8rem;font-weight:700}
+.d-body{padding:1rem 1.1rem 1.1rem;display:flex;flex-direction:column;gap:.65rem}
+.d-title{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.d-title b{font-size:1.05rem}
+.d-title span{font-size:.8rem;color:var(--ink-2)}
+.d-body .bar{height:.4rem;margin:0}
+.d-sub{font-size:.75rem;color:var(--ink-3)}
+.mdots{display:flex;flex-wrap:wrap;gap:.25rem}
+.mdots i{width:.8rem;height:.8rem;border-radius:.25rem;background:var(--glass-2);border:1px solid var(--line)}
+.mdots i.use{background:var(--accent-2);border-color:transparent;box-shadow:0 0 8px rgba(var(--accent-2-rgb),.6)}
+.il{width:100%;height:100%;display:block;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.il .a{stroke:var(--accent)}
+.il .b{stroke:var(--accent-2)}
+.il .w{stroke:var(--ink-3);stroke-width:2}
+.il .f{fill:rgba(var(--accent-rgb),.16)}
+.il .g{fill:rgba(var(--accent-2-rgb),.18);stroke:var(--accent-2)}
+.il .bg{fill:rgba(var(--accent-rgb),.07);stroke:none}
+.il .dot{fill:var(--accent-2);stroke:none}
+@media (max-width:700px){.now-row{grid-template-columns:minmax(0,1fr)}.nr-eta{text-align:left}}
+
+/* ---------- Selector de modo y horario ---------- */
+.seg{display:flex;gap:.3rem;padding:.3rem;border-radius:1rem;background:var(--well);border:1px solid var(--line);margin-bottom:1rem}
+.seg button{flex:1;padding:.6rem .8rem;border-radius:.75rem;font-weight:700;font-size:.82rem;color:var(--ink-2);transition:background .2s,color .2s}
+.seg button:hover:not(:disabled):not(.on){background:var(--glass-2)}
+.seg button.on{background:linear-gradient(90deg,rgba(var(--accent-rgb),.95),rgba(var(--accent-soft-rgb),.85));color:var(--on-accent)}
+.seg button:disabled{opacity:.55}
+.timebox{margin-bottom:1rem}
+.fields2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.tsum{margin-top:.8rem;padding:.8rem 1rem;border-radius:1rem;background:var(--well);border:1px solid var(--line);font-size:.8rem;color:var(--ink-2);line-height:1.6}
+.tsum b{color:var(--ink);font-weight:700}
+.tsum.bad{border-color:rgba(255,107,120,.5);color:#ffd5d9}
+@media (max-width:700px){.fields2{grid-template-columns:1fr}}
+
 /* ---------- Tablet ---------- */
 @media (max-width:1100px){
   .work{grid-template-columns:minmax(0,1fr)}
@@ -372,6 +435,8 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 
     <div class="chips" id="chips"></div>
     <div id="banner" hidden></div>
+    <section class="home" id="home" hidden></section>
+    <input type="file" id="imgFile" accept="image/*" hidden>
 
     <!-- Estados sin pedido -->
     <section class="glass empty" id="loading"><div id="ic-load"></div><h2>Cargando pedidos…</h2><p>Leyendo la base de datos compartida.</p></section>
@@ -405,6 +470,14 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
               <button class="mini" id="allOn">Todas</button>
               <button class="mini" id="allOff">Ninguna</button>
             </div>
+          </div>
+          <div class="seg" id="modeSeg" role="group" aria-label="Forma de calcular la tasa"><button type="button" data-mode="rate">Uds por hora</button><button type="button" data-mode="time">Hora de inicio y fin</button></div>
+          <div class="timebox" id="timeBox" hidden>
+            <div class="fields2">
+              <label class="lab" for="fStart">Hora de inicio<input class="field mono" id="fStart" type="datetime-local"></label>
+              <label class="lab" for="fEnd">Hora de fin<input class="field mono" id="fEnd" type="datetime-local"></label>
+            </div>
+            <div class="tsum" id="tSum"></div>
           </div>
           <div class="grid" id="grid"></div>
         </div>
@@ -492,6 +565,8 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
     ] }
   };
 
+  SECTIONS.laser = { label: 'Láser', noun: 'máquina', nouns: 'máquinas', Nouns: 'Máquinas', f: true, machines: (function () { var a = []; for (var i = 1; i <= 9; i++) a.push({ id: 'laser' + i, name: 'Máquina ' + i }); return a; })() };
+
   /* ---------- Utilidades ---------- */
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
@@ -525,6 +600,9 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
     trash: svg('<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>'),
     check: svg('<path d="M5 12l5 5L20 7" stroke-width="4"/>'),
     alert: svg('<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/>'),
+    home: svg('<path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'),
+    camera: svg('<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>'),
+    shirt: svg('<path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>'),
     bell: svg('<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'),
     palette: svg('<circle cx="13.5" cy="6.5" r="1" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.9-4.5-9-10-9z"/>'),
     play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>',
@@ -540,13 +618,17 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
     { id: 'serigrafia', label: 'Serigrafía Auto', icon: 'printer', sec: 'serigrafia' },
     { id: 'pulpos', label: 'Serigrafía Pulpos', icon: 'star', sec: 'pulpos' },
     { id: 'digital', label: 'Digital', icon: 'monitor', sec: 'digital' },
+    { id: 'laser', label: 'Láser', icon: 'zap', sec: 'laser' },
+    { id: 'bordadora', label: 'Bordadora', icon: 'shirt' },
     { id: '360', label: '360', icon: 'bottle' },
     { id: 'planchas', label: 'Planchas', icon: 'layers', sec: 'planchas' }
   ];
 
   /* ---------- Estado ---------- */
   var orders = new Map(), curId = null, readOnly = false, ready = false, openSecs = {}, STORE = 'mk_orders_v1', curSec = 'planchas', builtSec = null;
-  var chains = {}, finishing = {}, timers = {}, builtFor = null, distSig = '';
+  var chains = {}, finishing = {}, timers = {}, builtFor = null, distSig = '', builtMode = null;
+  var view = 'home';
+  try { view = localStorage.getItem('mk_view') === 'sec' ? 'sec' : 'home'; } catch (e) {}
   try { curId = localStorage.getItem('mk_cur'); curSec = localStorage.getItem('mk_sec') || 'planchas'; } catch (e) {}
   if (!SECTIONS[curSec]) curSec = 'planchas';
 try { openSecs = JSON.parse(localStorage.getItem('mk_open') || '{}') || {}; } catch (e) { openSecs = {}; }
@@ -554,16 +636,21 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
 
   /* ---------- Cálculos ---------- */
   /* Planchas: tasa fija en uds/h. Digital: tasa = uds por tirada x 60 / minutos por tirada (cada máquina y pedido tiene sus propios datos). */
+  function modeOf(o) { return o.mode === 'time' ? 'time' : 'rate'; }
+  function timeRate(o) { var q = qtyOf(o), d = (+o.tEnd || 0) - (+o.tStart || 0); return q > 0 && d > 0 ? q / (d / 3600000) : 0; }
+  function timeShare(o) { var n = 0; machs(o).forEach(function (m) { var p = o.planchas && o.planchas[m.id]; if (p && p.on) n++; }); return n ? timeRate(o) / n : 0; }
+  function toLocalInput(ms) { var d = new Date(ms); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+  function hhmm(ms) { var d = new Date(ms); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+  /* Modo "rate": tasa de cada máquina (fija, o uds por tirada x 60 / min por tirada en digital).
+     Modo "time": la tasa total sale de cantidad / (hora fin - hora inicio) y se reparte a partes iguales entre las activas. */
   function planchaOf(o, id) {
-    var p = o.planchas && o.planchas[id];
-    if (secOf(o) === 'digital') {
-      var pr = p && +p.perRun > 0 ? +p.perRun : 0, rm = p && +p.runMin > 0 ? +p.runMin : 0;
-      return { on: !!(p && p.on), perRun: pr, runMin: rm, rate: pr && rm ? pr * 60 / rm : 0 };
-    }
-    return { on: !!(p && p.on), rate: p && p.rate != null ? +p.rate : DEF_RATE };
+    var p = o.planchas && o.planchas[id], on = !!(p && p.on);
+    var pr = p && +p.perRun > 0 ? +p.perRun : 0, rm = p && +p.runMin > 0 ? +p.runMin : 0;
+    var stored = secOf(o) === 'digital' ? (pr && rm ? pr * 60 / rm : 0) : (p && p.rate != null ? +p.rate : DEF_RATE);
+    return { on: on, perRun: pr, runMin: rm, stored: stored, rate: modeOf(o) === 'time' ? (on ? timeShare(o) : 0) : stored };
   }
   function mpatch(o, p, over) {
-    var x = secOf(o) === 'digital' ? { on: p.on, perRun: p.perRun || null, runMin: p.runMin || null } : { on: p.on, rate: p.rate };
+    var x = secOf(o) === 'digital' ? { on: p.on, perRun: p.perRun || null, runMin: p.runMin || null } : { on: p.on, rate: p.stored };
     Object.keys(over).forEach(function (k) { x[k] = over[k]; });
     return x;
   }
@@ -654,20 +741,21 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   function createOrder() {
     var id = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), pls = {};
     SEC().machines.forEach(function (m) { pls[m.id] = curSec === 'digital' ? { on: false, perRun: null, runMin: null } : { on: false, rate: DEF_RATE }; });
-    orders.set(id, { id: id, section: curSec, name: '', qty: null, planchas: pls, status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null, createdAt: Date.now() });
+    orders.set(id, { id: id, section: curSec, mode: 'rate', tStart: null, tEnd: null, name: '', qty: null, planchas: pls, status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null, createdAt: Date.now() });
     persist(); select(id);
   }
   function select(id) {
     var o = orders.get(id);
     if (o && secOf(o) !== curSec) {
-      curSec = secOf(o); builtSec = null; distSig = ''; openSecs[curSec] = true; saveOpen();
+      curSec = secOf(o); builtSec = null; distSig = '';
       try { localStorage.setItem('mk_sec', curSec); } catch (e) {}
     }
+    view = 'sec'; openSecs = {}; openSecs[curSec] = true; saveOpen(); try { localStorage.setItem('mk_view', 'sec'); } catch (e) {}
     curId = id; try { localStorage.setItem('mk_cur', id); } catch (e) {}
     renderAll();
   }
   function setSection(sec) {
-    curSec = sec; openSecs[sec] = true; saveOpen();
+    curSec = sec; openSecs = {}; openSecs[sec] = true; saveOpen(); view = 'sec'; try { localStorage.setItem('mk_view', 'sec'); } catch (e) {}
     var f = secOrders()[0]; curId = f ? f.id : null;
     try { localStorage.setItem('mk_sec', sec); localStorage.setItem('mk_cur', curId || ''); } catch (e) {}
     builtSec = null; distSig = ''; renderAll();
@@ -684,7 +772,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   }
   function pctOf(o, now) { var q = qtyOf(o); return q ? Math.min(100, producedAt(o, now) / q * 100) : 0; }
   function secBlock(m, now) {
-    var on = m.sec === curSec, list = sortedOrders().filter(function (o) { return secOf(o) === m.sec; }), op = !!openSecs[m.sec];
+    var on = m.sec === curSec && view === 'sec', list = sortedOrders().filter(function (o) { return secOf(o) === m.sec; }), op = !!openSecs[m.sec];
     var h = '<button class="nav-item' + (on ? ' on' : '') + '" data-sec="' + m.sec + '" aria-expanded="' + op + '" title="' + esc(m.label) + '">' + IC[m.icon] + '<span class="lbl">' + esc(m.label) + '</span><span class="count">' + list.length + '</span><span class="chev ' + (op ? 'open' : '') + '" data-toggle title="' + (op ? 'Contraer' : 'Desplegar') + '">' + IC.chev + '</span></button>';
     if (!op) return h;
     h += '<div class="orders">';
@@ -696,6 +784,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   }
   function renderNav() {
     var now = Date.now(), h = '', list = secOrders();
+    h += '<button class="nav-item' + (view === 'home' ? ' on' : '') + '" data-home title="Inicio">' + IC.home + '<span class="lbl">Inicio</span></button>';
     MENU.forEach(function (m) {
       if (m.sec) { h += secBlock(m, now); return; }
       h += '<button class="nav-item" disabled title="' + esc(m.label) + ' (en construcción)">' + IC[m.icon] + '<span class="lbl">' + esc(m.label) + '</span><span class="soon">Pronto</span></button>';
@@ -706,7 +795,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     var c = '';
     list.forEach(function (o) { c += '<button class="chip ' + (o.id === curId ? 'sel' : '') + '" data-ord="' + esc(o.id) + '"><span class="dot ' + statusOf(o, now) + '" style="margin:0"></span>' + esc(o.name || 'Sin nombre') + '</button>'; });
     c += '<button class="chip" data-new ' + (readOnly ? 'disabled' : '') + '>+ Nuevo</button>';
-    $('#chips').innerHTML = c;
+    $('#chips').innerHTML = c; $('#chips').hidden = view === 'home';
   }
   function tickNav(now) {
     $$('.ord[data-ord]').forEach(function (el) {
@@ -720,11 +809,15 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   }
 
   /* ---------- Cuadrícula de planchas ---------- */
-  function buildGrid() {
-    var h = '', dig = curSec === 'digital';
+  function buildGrid(tm) {
+    var h = '', dig = curSec === 'digital' && !tm;
     $('#grid').className = 'grid' + (dig ? ' dig' : '');
     SEC().machines.forEach(function (m) {
       var i = m.id, nm = esc(m.name);
+      if (tm) {
+        h += '<div class="pl" data-id="' + i + '"><div class="pl-top"><b>' + nm + '</b><span class="chk">' + IC.check + '</span></div><p class="pl-unit" style="margin-top:.8rem"></p><p class="pl-busy"></p></div>';
+        return;
+      }
       if (dig) {
         h += '<div class="pl" data-id="' + i + '"><div class="pl-top"><b>' + nm + '</b><span class="chk">' + IC.check + '</span></div>' +
           '<div class="pl-run"><label class="pl-f"><span>Uds por tirada</span><input type="number" min="1" step="1" inputmode="numeric" data-f="perRun" placeholder="Ej. 54" aria-label="Unidades por tirada de ' + nm + '"></label>' +
@@ -733,10 +826,10 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
         return;
       }
       h += '<div class="pl" data-id="' + i + '"><div class="pl-top"><b>' + nm + '</b><span class="chk">' + IC.check + '</span></div>' +
-        '<div class="pl-rate"><button data-act="dec" aria-label="Restar 10 uds/h a ' + nm + '">−</button><input type="number" min="0" inputmode="numeric" aria-label="Unidades por hora de ' + nm + '"><button data-act="inc" aria-label="Sumar 10 uds/h a ' + nm + '">+</button></div>' +
+        '<div class="pl-rate"><button data-act="dec" aria-label="Restar 10 uds/h a ' + nm + '">\u2212</button><input type="number" min="0" inputmode="numeric" aria-label="Unidades por hora de ' + nm + '"><button data-act="inc" aria-label="Sumar 10 uds/h a ' + nm + '">+</button></div>' +
         '<p class="pl-unit">uds / hora</p><p class="pl-busy"></p></div>';
     });
-    $('#grid').innerHTML = h; builtSec = curSec;
+    $('#grid').innerHTML = h; builtSec = curSec; builtMode = tm ? 'time' : 'rate';
     var mb = ''; for (var j = 1; j <= SEC().machines.length; j++) mb += '<i></i>';
     $('#mbars').innerHTML = mb;
   }
@@ -748,10 +841,12 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
 
   function update() {
     var now = Date.now(), o = cur(), S = SEC();
-    $('#h1').textContent = S.label; $('#planTitle').textContent = S.Nouns + (S.f ? ' asignadas' : ' asignados'); $('#mActLab').textContent = S.Nouns + (S.f ? ' activas' : ' activos');
+    $('#h1').textContent = view === 'home' ? 'Inicio' : S.label; $('#planTitle').textContent = S.Nouns + (S.f ? ' asignadas' : ' asignados'); $('#mActLab').textContent = S.Nouns + (S.f ? ' activas' : ' activos');
     setT($('#allOn'), S.f ? 'Todas' : 'Todos'); setT($('#allOff'), S.f ? 'Ninguna' : 'Ninguno');
-    $('#planSub').textContent = curSec === 'digital' ? 'Pulsa para activar e indica cuántas uds caben por tirada y cuántos minutos dura' : 'Pulsa para activar y ajusta las uds/hora de cada una';
+    $('#planSub').textContent = (o && modeOf(o) === 'time') ? 'Pulsa para activar ' + (S.f ? 'las ' : 'los ') + S.nouns + ' que trabajarán; el reparto es a partes iguales' : curSec === 'digital' ? 'Pulsa para activar e indica cuántas uds caben por tirada y cuántos minutos dura' : 'Pulsa para activar y ajusta las uds/hora de cada una';
     $('#mTot').textContent = ' / ' + S.machines.length; $('#distTitle').textContent = 'Reparto de piezas por ' + S.noun;
+    if (view === 'home') { $('#loading').hidden = true; $('#empty').hidden = true; $('#work').hidden = true; $('#home').hidden = !ready; if (ready) renderHome(now); return; }
+    $('#home').hidden = true;
     $('#loading').hidden = ready;
     $('#empty').hidden = !(ready && secOrders().length === 0);
     $('#work').hidden = !(ready && o);
@@ -768,9 +863,26 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     if (document.activeElement !== fq) fq.value = q ? q : '';
     fn.disabled = fq.disabled = lockInfo;
     $('#allOn').disabled = $('#allOff').disabled = lockPl;
+    $$('#modeSeg button').forEach(function (b) { var on = b.getAttribute('data-mode') === modeOf(o); b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); b.disabled = lockInfo; });
+    $('#timeBox').hidden = modeOf(o) !== 'time';
+    var fS = $('#fStart'), fE = $('#fEnd');
+    if (document.activeElement !== fS) fS.value = o.tStart ? toLocalInput(o.tStart) : '';
+    if (document.activeElement !== fE) fE.value = o.tEnd ? toLocalInput(o.tEnd) : '';
+    fS.disabled = fE.disabled = lockInfo;
+    if (modeOf(o) === 'time') {
+      var ts = $('#tSum'), dur = (o.tStart && o.tEnd) ? o.tEnd - o.tStart : 0, bad = false, tx;
+      var onN = machs(o).filter(function (m) { return planchaOf(o, m.id).on; }).length;
+      if (!o.tStart || !o.tEnd) tx = 'Indica la hora de inicio y la de fin.';
+      else if (dur <= 0) { tx = 'La hora de fin debe ser posterior a la de inicio.'; bad = true; }
+      else if (!q) tx = 'Duración: <b>' + fmtDur(dur) + '</b> · Introduce la cantidad total para calcular la tasa.';
+      else { var R = timeRate(o); tx = 'Duración: <b>' + fmtDur(dur) + '</b> · Tasa necesaria: <b class="mono">' + nf1.format(R) + ' uds/h</b>' + (onN ? ' · <b class="mono">' + nf1.format(R / onN) + ' uds/h</b> por ' + S.noun + ' (' + onN + ')' : ' · activa ' + S.nouns + ' para repartirla'); }
+      if (ts.getAttribute('data-k') !== tx) { ts.innerHTML = tx; ts.setAttribute('data-k', tx); }
+      ts.className = 'tsum' + (bad ? ' bad' : '');
+    }
 
     // Planchas
-    if (builtSec !== curSec) buildGrid();
+    var tmode = modeOf(o) === 'time';
+    if (builtSec !== curSec || builtMode !== modeOf(o)) buildGrid(tmode);
     var maxRate = 100;
     machs(o).forEach(function (m) { maxRate = Math.max(maxRate, planchaOf(o, m.id).rate); });
     var bars = $$('#mbars i');
@@ -782,7 +894,8 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
         if (document.activeElement !== inp) inp.value = f === 'perRun' ? (p.perRun || '') : f === 'runMin' ? (p.runMin || '') : p.rate;
         inp.disabled = lockPl;
       });
-      if (curSec === 'digital') el.querySelector('.pl-unit').textContent = p.rate > 0 ? '≈ ' + nf1.format(p.rate) + ' uds / hora' : 'faltan datos';
+      if (tmode) el.querySelector('.pl-unit').textContent = p.on ? '≈ ' + nf1.format(p.rate) + ' uds / hora' : (S.f ? 'inactiva' : 'inactivo');
+      else if (curSec === 'digital') el.querySelector('.pl-unit').textContent = p.rate > 0 ? '≈ ' + nf1.format(p.rate) + ' uds / hora' : 'faltan datos';
       $$('button', el).forEach(function (bt) { bt.disabled = lockPl; });
       el.querySelector('.pl-busy').textContent = b ? 'En uso · ' + (b.name || 'otro pedido') : '';
       var bar = bars[ix];
@@ -805,7 +918,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     var canCalc = q > 0 && rate > 0, remMs = canCalc ? pend / rate * 3600000 : null, endAt = null;
     if (st === 'done') endAt = o.finishedAt || now;
     else if (st === 'running' && canCalc) endAt = o.runStartedAt + (q - (+o.producedBase || 0)) / rate * 3600000;
-    else if (canCalc) endAt = now + remMs;
+    else if (canCalc) endAt = (tmode && st === 'planned' && o.tEnd > now && o.tEnd > o.tStart) ? o.tEnd : now + remMs;
 
     var cd = $('#cd'), cdSub = $('#cdSub'), clockLab = $('#clockLab');
     cd.classList.toggle('done', st === 'done');
@@ -823,7 +936,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
       var tt = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
       setT($('#endT'), tt, st === 'running');
       $('#endLab').textContent = st === 'done' ? 'Terminó el ' + d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Fin previsto · ' + d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-      $('#endRel').textContent = st === 'done' ? 'a las ' + tt : st === 'running' ? 'en ' + fmtDur(endAt - now) : 'Si lo inicias ahora, terminará a esta hora';
+      $('#endRel').textContent = st === 'done' ? 'a las ' + tt : st === 'running' ? 'en ' + fmtDur(endAt - now) : ((tmode && st === 'planned' && endAt === o.tEnd) ? 'Previsto de ' + hhmm(o.tStart) + ' a ' + hhmm(o.tEnd) : 'Si lo inicias ahora, terminará a esta hora');
     } else {
       setT($('#endM'), '—'); setT($('#endD'), '—'); setT($('#endW'), ' '); setT($('#endT'), '--:--:--');
       $('#endLab').textContent = 'Fin previsto'; $('#endRel').textContent = 'Sin datos todavía';
@@ -842,8 +955,9 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     runTxt.textContent = st === 'running' ? 'Pausar' : st === 'done' ? 'Pedido completado' : st === 'paused' ? 'Reanudar' : 'Iniciar producción';
     var warn = '';
     if (st !== 'done' && st !== 'running') {
-      var inc = curSec === 'digital' ? machs(o).filter(function (m) { var pm = planchaOf(o, m.id); return pm.on && pm.rate <= 0; }) : [];
+      var inc = (curSec === 'digital' && !tmode) ? machs(o).filter(function (m) { var pm = planchaOf(o, m.id); return pm.on && pm.rate <= 0; }) : [];
       if (inc.length) warn = 'Completa uds y minutos por tirada en: ' + inc.map(function (m) { return m.name; }).join(', ') + '.';
+      else if (!canCalc && tmode) warn = (!o.tStart || !o.tEnd) ? 'Indica la hora de inicio y la de fin.' : o.tEnd <= o.tStart ? 'La hora de fin debe ser posterior a la de inicio.' : 'Introduce una cantidad y activa al menos ' + (S.f ? 'una ' : 'un ') + S.noun + '.';
       else if (!canCalc) warn = curSec === 'digital' ? 'Introduce una cantidad y activa al menos ' + (S.f ? 'una ' : 'un ') + S.noun + ' con uds y minutos por tirada.' : 'Introduce una cantidad y activa al menos ' + (S.f ? 'una ' : 'un ') + S.noun + ' con tasa mayor que 0.';
       else if (conf.length) warn = '«' + conf[0].name + '» está en uso en «' + (conf[0].order.name || 'otro pedido') + '». ' + (S.f ? 'Quítala' : 'Quítalo') + ' o espera a que termine.';
     }
@@ -892,16 +1006,34 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
 
   document.addEventListener('click', function (e) {
     var t = e.target;
+    var hm = t.closest('[data-home]'); if (hm) { goHome(); return; }
+    var ib = t.closest('[data-img]'); if (ib) { imgKey = ib.getAttribute('data-img'); $('#imgFile').click(); return; }
+    var ir = t.closest('[data-imgreset]'); if (ir) { delete imgs[ir.getAttribute('data-imgreset')]; imgVer++; saveImgs(); renderHome(Date.now()); return; }
+    var go = t.closest('[data-go]'); if (go) { setSection(go.getAttribute('data-go')); return; }
     var nw = t.closest('[data-new]'); if (nw) { var ns = nw.getAttribute('data-new'); if (ns && SECTIONS[ns] && ns !== curSec) setSection(ns); createOrder(); return; }
     var od = t.closest('[data-ord]'); if (od) { select(od.getAttribute('data-ord')); return; }
     var tg = t.closest('[data-sec]');
     if (tg) {
       var sc = tg.getAttribute('data-sec');
-      if (t.closest('[data-toggle]') || sc === curSec) { openSecs[sc] = !openSecs[sc]; saveOpen(); renderNav(); }
+      if (t.closest('[data-toggle]') || (sc === curSec && view === 'sec')) { var wasOpen = !!openSecs[sc]; openSecs = {}; if (!wasOpen) openSecs[sc] = true; saveOpen(); renderNav(); }
       else setSection(sc);
       return;
     }
   });
+
+  $('#modeSeg').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-mode]'), o = cur(); if (!b || !o || readOnly) return;
+    var st = statusOf(o, Date.now()); if (st === 'running' || st === 'done') return;
+    var m = b.getAttribute('data-mode'), patch = { mode: m };
+    if (m === 'time' && !o.tStart) { var n = new Date(); n.setSeconds(0, 0); patch.tStart = n.getTime(); }
+    write(o.id, patch);
+  });
+  function onTime(key, e) {
+    var o = cur(); if (!o) return; var v = e.target.value, t = v ? new Date(v).getTime() : NaN, id = o.id;
+    debounced(key, function () { var pt = {}; pt[key] = isNaN(t) ? null : t; write(id, pt); }, 300);
+  }
+  $('#fStart').addEventListener('input', function (e) { onTime('tStart', e); });
+  $('#fEnd').addEventListener('input', function (e) { onTime('tEnd', e); });
 
   $('#fName').addEventListener('input', function (e) {
     var o = cur(); if (!o) return; var v = e.target.value;
@@ -1055,6 +1187,110 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanels(null); });
 
+  /* ---------- Inicio: vista general de todas las máquinas ---------- */
+  var homeSig = '', imgVer = 0, imgKey = null, imgs = {};
+  try { imgs = JSON.parse(localStorage.getItem('mk_imgs') || '{}') || {}; } catch (e) { imgs = {}; }
+  function saveImgs() { try { localStorage.setItem('mk_imgs', JSON.stringify(imgs)); } catch (e) { toast('No hay espacio para guardar la imagen.'); } }
+  function goHome() {
+    view = 'home'; openSecs = {}; saveOpen();
+    try { localStorage.setItem('mk_view', 'home'); } catch (e) {}
+    renderAll(); window.scrollTo({ top: 0 });
+  }
+  $('#imgFile').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0], key = imgKey; e.target.value = ''; if (!f || !key) return;
+    var rd = new FileReader();
+    rd.onload = function () {
+      var im = new Image();
+      im.onload = function () {
+        var W = 640, H = 320, c = document.createElement('canvas'); c.width = W; c.height = H;
+        var x = c.getContext('2d'), k = Math.max(W / im.width, H / im.height), w = im.width * k, h = im.height * k;
+        x.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
+        imgs[key] = c.toDataURL('image/jpeg', 0.8); imgVer++; saveImgs(); renderHome(Date.now());
+      };
+      im.onerror = function () { toast('No se pudo leer esa imagen.'); };
+      im.src = rd.result;
+    };
+    rd.readAsDataURL(f);
+  });
+  function endOf(o) { var q = qtyOf(o), r = rateOf(o); return o.status === 'running' && r > 0 && o.runStartedAt ? o.runStartedAt + (q - (+o.producedBase || 0)) / r * 3600000 : null; }
+  function etaText(o, now) { var e = endOf(o); return e == null ? '—' : fmtDur(Math.max(0, e - now)); }
+  function endText(ms, now) {
+    var d = new Date(ms), t = pad(d.getHours()) + ':' + pad(d.getMinutes());
+    return new Date(now).toDateString() === d.toDateString() ? 'hoy a las ' + t : d.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' }).replace('.', '') + ' ' + t;
+  }
+  function illus(key) {
+    var P = {
+      planchas: '<path class="w" d="M40 140h240"/><rect class="f a" x="75" y="112" width="170" height="20" rx="5"/><rect class="g" x="95" y="104" width="130" height="8" rx="2"/><rect class="f a" x="85" y="62" width="150" height="26" rx="5"/><path class="a" d="M235 75h30V38"/><path class="a" d="M255 38h22"/><path class="b" d="M115 52q-7-9 0-18M160 52q-7-9 0-18M205 52q-7-9 0-18"/>',
+      tampografia: '<path class="w" d="M40 140h240"/><rect class="f a" x="140" y="16" width="40" height="30" rx="5"/><path class="a" d="M160 46v14"/><path class="f a" d="M128 100q32-48 64 0z"/><rect class="g" x="112" y="112" width="96" height="22" rx="5"/><path class="b" d="M130 124h60"/><path class="b" d="M236 58v28M228 78l8 8 8-8"/>',
+      serigrafia: '<path class="w" d="M40 140h240"/><rect class="g" x="80" y="118" width="160" height="14" rx="3"/><rect class="a" x="85" y="52" width="150" height="62" rx="4"/><path class="b" d="M100 66h120M100 82h120M100 98h120"/><path class="a" d="M138 20l24 40"/><rect class="f a" x="150" y="54" width="28" height="10" rx="2" transform="rotate(30 164 59)"/>',
+      pulpos: '<path class="w" d="M40 140h240"/><path class="a" d="M160 100v40"/><path class="a" d="M160 88 70 70M160 88l90-18M160 88 100 36M160 88l60-52"/><circle class="f a" cx="160" cy="88" r="13"/><circle class="g" cx="70" cy="70" r="13"/><circle class="g" cx="250" cy="70" r="13"/><circle class="g" cx="100" cy="36" r="13"/><circle class="g" cx="220" cy="36" r="13"/>',
+      digital: '<path class="w" d="M40 140h240"/><rect class="g" x="108" y="26" width="104" height="38" rx="3"/><rect class="f a" x="80" y="62" width="160" height="50" rx="9"/><path class="a" d="M100 78h120"/><rect class="g" x="112" y="106" width="96" height="30" rx="3"/><path class="b" d="M124 118h60M124 127h36"/>',
+      laser: '<path class="w" d="M40 140h240"/><rect class="f a" x="135" y="14" width="50" height="28" rx="6"/><path class="b" d="M160 42v50" style="stroke-width:4"/><circle class="dot" cx="160" cy="96" r="7"/><rect class="g" x="85" y="104" width="150" height="26" rx="4"/><path class="b" d="M146 90l-12-8M174 90l12-8M146 100l-16 2M174 100l16 2"/>',
+      bordadora: '<path class="w" d="M40 140h240"/><circle class="f a" cx="160" cy="96" r="42"/><circle class="w" cx="160" cy="96" r="33" style="stroke-dasharray:4 5"/><path class="a" d="M160 10v52"/><path class="a" d="M155 62h10"/><path class="b" d="M160 14q18 12 0 26"/><path class="b" d="M138 102l9-6M155 106l9-6M172 102l9-6"/>',
+      '360': '<path class="w" d="M40 140h240"/><path class="f a" d="M146 16h28v14l12 16v78a8 8 0 0 1-8 8h-36a8 8 0 0 1-8-8V46l12-16z"/><rect class="g" x="138" y="70" width="44" height="34" rx="3"/><path class="b" d="M66 106q94 36 188 0"/><path class="b" d="M244 96l10 10-14 4"/>'
+    };
+    return '<svg class="il" viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect class="bg" width="320" height="160"/><circle class="bg" cx="256" cy="36" r="84"/>' + (P[key] || '') + '</svg>';
+  }
+  function kpi(ic, color, lab, val, sub) { return '<div class="glass kpi"><span style="color:' + color + '">' + ic + '</span><div class="lab">' + lab + '</div><div class="v mono">' + val + '</div><div class="s">' + sub + '</div></div>'; }
+  function renderHome(now) {
+    var all = sortedOrders(), run = all.filter(function (o) { return statusOf(o, now) === 'running'; });
+    var sig = all.map(function (o) { return [o.id, statusOf(o, now), o.name, secOf(o), o.qty, activeList(o).map(function (p) { return p.id; }).join('.')].join('|'); }).join(';') + '#' + imgVer;
+    if (sig !== homeSig) {
+      var used = {}, rate = 0, nUsed = 0, nTot = 0, paused = 0, planned = 0, next = null;
+      run.forEach(function (o) {
+        rate += rateOf(o);
+        activeList(o).forEach(function (p) { used[secOf(o) + ':' + p.id] = o; });
+        var e = endOf(o); if (e != null && (!next || e < endOf(next))) next = o;
+      });
+      all.forEach(function (o) { var s = statusOf(o, now); if (s === 'paused') paused++; else if (s === 'planned') planned++; });
+      MENU.forEach(function (m) { if (m.sec) SECTIONS[m.sec].machines.forEach(function (mm) { nTot++; if (used[m.sec + ':' + mm.id]) nUsed++; }); });
+
+      var h = '<div class="kpis">' +
+        kpi(IC.factory, 'var(--accent)', 'En producción', String(run.length), paused + ' en pausa · ' + planned + ' planificados') +
+        kpi(IC.layers, 'var(--accent-2)', 'Máquinas en uso', nUsed + '<small> / ' + nTot + '</small>', (nTot ? Math.round(nUsed / nTot * 100) : 0) + '% de ocupación') +
+        kpi(IC.zap, 'var(--accent-soft)', 'Ritmo combinado', nf1.format(rate) + '<small> uds/h</small>', 'suma de pedidos en marcha') +
+        kpi(IC.flag, 'var(--accent)', 'Próximo en terminar', next ? '<span data-o="' + esc(next.id) + '" data-k="eta"></span>' : '—', next ? esc(next.name || 'Pedido sin nombre') + ' · ' + endText(endOf(next), now) : 'Ningún pedido en marcha').replace('class="v mono"', 'class="v mono sm"') +
+        '</div>';
+
+      h += '<div class="sec-t">En producción ahora</div><div class="glass now">';
+      if (!run.length) h += '<div class="nempty">No hay ningún pedido en marcha ahora mismo.</div>';
+      run.slice().sort(function (a, b) { return endOf(a) - endOf(b); }).forEach(function (o) {
+        var n = activeList(o).length, S2 = SECTIONS[secOf(o)], id = esc(o.id);
+        h += '<button class="now-row" data-ord="' + id + '"><span><b>' + esc(o.name || 'Pedido sin nombre') + '</b><small>' + esc(S2.label) + ' · ' + n + ' ' + (n === 1 ? S2.noun : S2.nouns) + ' · ' + nf1.format(rateOf(o)) + ' uds/h</small></span>' +
+          '<span class="nr-prog"><i class="bar"><u data-o="' + id + '" data-k="pct" style="width:0%"></u></i><small><b class="mono" style="display:inline" data-o="' + id + '" data-k="pcttxt">0%</b> de ' + nf.format(qtyOf(o)) + ' uds</small></span>' +
+          '<span class="nr-eta"><b class="mono" data-o="' + id + '" data-k="eta"></b><small>fin ' + endText(endOf(o), now) + '</small></span></button>';
+      });
+      h += '</div><div class="sec-t">Departamentos</div><div class="depts">';
+      MENU.forEach(function (m) {
+        var sec = m.sec ? SECTIONS[m.sec] : null, n = 0, usedHere = 0, runSec = 0, allSec = 0, dots = '';
+        if (sec) {
+          n = sec.machines.length;
+          sec.machines.forEach(function (mm) {
+            var uo = used[m.sec + ':' + mm.id]; if (uo) usedHere++;
+            dots += '<i class="' + (uo ? 'use' : '') + '" title="' + esc(mm.name + ' · ' + (uo ? 'en uso · ' + (uo.name || 'pedido sin nombre') : 'libre')) + '"></i>';
+          });
+          runSec = run.filter(function (o) { return secOf(o) === m.sec; }).length;
+          allSec = all.filter(function (o) { return secOf(o) === m.sec; }).length;
+        }
+        h += '<article class="glass dept' + (sec ? '' : ' off') + '"' + (sec ? ' data-go="' + m.sec + '"' : '') + '><div class="d-img">' + (imgs[m.id] ? '<img src="' + imgs[m.id] + '" alt="">' : illus(m.id)) +
+          (sec ? '<span class="d-badge' + (usedHere ? ' on' : '') + '">' + usedHere + ' en uso</span>' : '<span class="d-badge">Próximamente</span>') +
+          '<button class="d-cam" data-img="' + m.id + '" title="Cambiar imagen" aria-label="Cambiar imagen de ' + esc(m.label) + '">' + IC.camera + '</button>' +
+          (imgs[m.id] ? '<button class="d-cam d-reset" data-imgreset="' + m.id + '" title="Restaurar ilustración" aria-label="Restaurar ilustración">✕</button>' : '') + '</div>' +
+          '<div class="d-body"><div class="d-title"><b>' + esc(m.label) + '</b><span class="mono">' + (sec ? usedHere + ' / ' + n : '—') + '</span></div>' +
+          (sec ? '<i class="bar"><u style="width:' + (n ? usedHere / n * 100 : 0).toFixed(1) + '%"></u></i><div class="d-sub">' + (runSec ? runSec + (runSec === 1 ? ' pedido en marcha' : ' pedidos en marcha') : 'Sin pedidos en marcha') + ' · ' + allSec + ' en total</div><div class="mdots">' + dots + '</div>' : '<div class="d-sub">Sección en construcción</div>') +
+          '</div></article>';
+      });
+      $('#home').innerHTML = h + '</div>'; homeSig = sig;
+    }
+    $$('#home [data-o]').forEach(function (el) {
+      var o = orders.get(el.getAttribute('data-o')); if (!o) return;
+      var k = el.getAttribute('data-k');
+      if (k === 'pct') el.style.width = pctOf(o, now).toFixed(1) + '%';
+      else if (k === 'pcttxt') setT(el, Math.floor(pctOf(o, now)) + '%');
+      else if (k === 'eta') setT(el, etaText(o, now));
+    });
+  }
+
   /* ---------- Arranque ---------- */
   function clocks() {
     var d = new Date();
@@ -1067,9 +1303,10 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
 
   loadNotifs(); renderPalettes(); renderBell(); setInterval(renderBell, 30000);
   loadStore();
-  if (!Object.keys(openSecs).length) openSecs[curSec] = true;
+  
   if (curId && orders.has(curId)) curSec = secOf(orders.get(curId));
   else { var first = secOrders(); curId = first.length ? first[0].id : null; }
+  openSecs = {}; if (view === 'sec') openSecs[curSec] = true;
   ready = true;
   $('#syncTxt').textContent = 'Guardado en este navegador';
   renderNav(); update();
