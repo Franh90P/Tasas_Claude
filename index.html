@@ -361,6 +361,45 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .il .dot{fill:var(--accent-2);stroke:none}
 @media (max-width:700px){.now-row{grid-template-columns:minmax(0,1fr)}.nr-eta{text-align:left}}
 
+/* ---------- Botones sueltos, demo e historial ---------- */
+.hbtn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-radius:.9rem;font-weight:700;font-size:.8rem;border:1px solid var(--line-2);background:var(--glass);transition:background .2s}
+.hbtn:hover{background:var(--glass-2)}
+.hbtn svg{width:1rem;height:1rem}
+.hbtn.pri{background:linear-gradient(90deg,rgba(var(--accent-rgb),.95),rgba(var(--accent-soft-rgb),.85));color:var(--on-accent);border-color:transparent}
+.hbtn.armed{border-color:var(--red);color:var(--red)}
+.demobar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem;padding:.8rem 1.1rem;border-radius:1.2rem;border-style:dashed;margin-bottom:1.25rem}
+.demobar b{display:block;font-size:.85rem}
+.demobar small{font-size:.72rem;color:var(--ink-3)}
+.demo-act{display:flex;flex-wrap:wrap;gap:.5rem}
+.hist-tools{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
+.hchips{display:flex;flex-wrap:wrap;gap:.4rem;flex:1 1 20rem}
+.hchip{padding:.45rem .8rem;border-radius:99px;font-size:.78rem;font-weight:600;border:1px solid var(--line);background:var(--glass);color:var(--ink-2);transition:background .2s}
+.hchip b{font-family:var(--font-num);margin-left:.3rem;color:var(--ink-3);font-weight:700}
+.hchip:hover{background:var(--glass-2)}
+.hchip.on{background:linear-gradient(90deg,rgba(var(--accent-rgb),.95),rgba(var(--accent-soft-rgb),.85));color:var(--on-accent);border-color:transparent}
+.hchip.on b{color:inherit}
+.hist-tools .field{flex:0 1 14rem;width:14rem}
+.htable-wrap{padding:.4rem;overflow-x:auto}
+.htable{width:100%;border-collapse:collapse;font-size:.8rem;min-width:64rem}
+.htable th{text-align:left;font-size:.64rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);padding:.3rem .15rem;font-weight:700;white-space:nowrap}
+.th-btn{display:inline-flex;align-items:center;gap:.25rem;padding:.4rem .35rem;border-radius:.6rem;font:inherit;text-transform:inherit;letter-spacing:inherit;color:inherit;transition:background .15s,color .15s}
+.th-btn:hover{background:var(--glass-2);color:var(--ink)}
+.htable th.on .th-btn{color:var(--accent)}
+.th-btn .arr{font-size:.55rem;width:.7rem;opacity:0}
+.htable th.on .arr{opacity:1}
+.th-btn:hover .arr{opacity:.5}
+.htable th.on .th-btn:hover .arr{opacity:1}
+.htable th.r,.htable td.r{text-align:right}
+.htable td{padding:.6rem .4rem;border-top:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+.htable tr.hrow{cursor:pointer}
+.htable tr.hrow:hover td{background:var(--glass-2)}
+.htable td small{display:block;font-size:.7rem;color:var(--ink-3)}
+.htable td b{font-weight:700}
+.htable .nm{max-width:12.5rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dev{font-weight:700;white-space:nowrap}
+.dev.ok{color:var(--accent-2)}
+.dev.bad{color:var(--red)}
+
 /* ---------- Selector de modo y horario ---------- */
 .seg{display:flex;gap:.3rem;padding:.3rem;border-radius:1rem;background:var(--well);border:1px solid var(--line);margin-bottom:1rem}
 .seg button{flex:1;padding:.6rem .8rem;border-radius:.75rem;font-weight:700;font-size:.82rem;color:var(--ink-2);transition:background .2s,color .2s}
@@ -435,7 +474,20 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 
     <div class="chips" id="chips"></div>
     <div id="banner" hidden></div>
+    <div class="glass demobar" id="demoBar" hidden>
+      <div><b>Modo presentación</b><small>Botones temporales para enseñar la app con datos de ejemplo</small></div>
+      <div class="demo-act"><button class="hbtn pri" id="btnDemo">Cargar datos de demo</button><button class="hbtn" id="btnWipe">Vaciar todo</button></div>
+    </div>
     <section class="home" id="home" hidden></section>
+    <section class="home" id="hist" hidden>
+      <div class="hist-tools">
+        <div class="hchips" id="histChips"></div>
+        <input class="field" id="histQ" type="search" placeholder="Buscar pedido…" aria-label="Buscar en el historial" autocomplete="off">
+        <button class="hbtn" id="histCsv" title="Descargar en CSV (se abre en Excel) lo que ves ahora: con el filtro y el orden elegidos"><span id="ic-dl"></span>Exportar</button>
+      </div>
+      <div class="kpis" id="histKpis"></div>
+      <div class="glass htable-wrap" id="histTable"></div>
+    </section>
     <input type="file" id="imgFile" accept="image/*" hidden>
 
     <!-- Estados sin pedido -->
@@ -600,6 +652,8 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
     trash: svg('<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>'),
     check: svg('<path d="M5 12l5 5L20 7" stroke-width="4"/>'),
     alert: svg('<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/>'),
+    history: svg('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>'),
+    download: svg('<path d="M12 3v12M7 10l5 5 5-5M4 21h16"/>'),
     home: svg('<path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'),
     camera: svg('<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>'),
     shirt: svg('<path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>'),
@@ -611,7 +665,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   function put(id, html) { var e = document.getElementById(id); if (e) e.innerHTML = html; }
   put('ic-factory', IC.factory); put('ic-cal', IC.cal); put('ic-flag', IC.flag); put('ic-pkg', IC.pkg);
   put('ic-lay', IC.layers); put('ic-zap', IC.zap); put('ic-reset', IC.reset); put('ic-trash', IC.trash);
-  put('ic-bell', IC.bell); put('ic-pal', IC.palette); put('ic-split', IC.split); put('ic-empty', IC.layers); put('ic-load', IC.layers); put('ic-plus-big', IC.plus);
+  put('ic-dl', IC.download); put('ic-bell', IC.bell); put('ic-pal', IC.palette); put('ic-split', IC.split); put('ic-empty', IC.layers); put('ic-load', IC.layers); put('ic-plus-big', IC.plus);
 
   var MENU = [
     { id: 'tampografia', label: 'Tampografía', icon: 'stamp', sec: 'tampografia' },
@@ -628,7 +682,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   var orders = new Map(), curId = null, readOnly = false, ready = false, openSecs = {}, STORE = 'mk_orders_v1', curSec = 'planchas', builtSec = null;
   var chains = {}, finishing = {}, timers = {}, builtFor = null, distSig = '', builtMode = null;
   var view = 'home';
-  try { view = localStorage.getItem('mk_view') === 'sec' ? 'sec' : 'home'; } catch (e) {}
+  try { var __v = localStorage.getItem('mk_view'); view = __v === 'sec' || __v === 'hist' ? __v : 'home'; } catch (e) {}
   try { curId = localStorage.getItem('mk_cur'); curSec = localStorage.getItem('mk_sec') || 'planchas'; } catch (e) {}
   if (!SECTIONS[curSec]) curSec = 'planchas';
 try { openSecs = JSON.parse(localStorage.getItem('mk_open') || '{}') || {}; } catch (e) { openSecs = {}; }
@@ -733,15 +787,22 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     merge(o, data); persist(); renderNav(); update();
     return Promise.resolve();
   }
+  /* Tiempo acumulado en marcha (sin contar las pausas), para el historial */
+  function bankMs(o, t) { var w = +o.workMs || 0; return o.status === 'running' && o.runStartedAt ? w + Math.max(0, t - o.runStartedAt) : w; }
+  function estimateMs(o) {
+    var r = rateOf(o), q = qtyOf(o);
+    if (modeOf(o) === 'time' && o.tEnd > o.tStart) return o.tEnd - o.tStart;
+    return r > 0 ? Math.round((q - (+o.producedBase || 0)) / r * 3600000) : null;
+  }
   function change(o, patch) {
     var now = Date.now();
-    if (statusOf(o, now) === 'running') { patch.producedBase = producedAt(o, now); patch.runStartedAt = now; }
+    if (statusOf(o, now) === 'running') { patch.producedBase = producedAt(o, now); patch.runStartedAt = now; patch.workMs = bankMs(o, now); }
     return write(o.id, patch);
   }
   function createOrder() {
     var id = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), pls = {};
     SEC().machines.forEach(function (m) { pls[m.id] = curSec === 'digital' ? { on: false, perRun: null, runMin: null } : { on: false, rate: DEF_RATE }; });
-    orders.set(id, { id: id, section: curSec, mode: 'rate', tStart: null, tEnd: null, name: '', qty: null, planchas: pls, status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null, createdAt: Date.now() });
+    orders.set(id, { id: id, section: curSec, mode: 'rate', tStart: null, tEnd: null, name: '', qty: null, planchas: pls, status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null, firstStartAt: null, workMs: 0, estMs: null, createdAt: Date.now() });
     persist(); select(id);
   }
   function select(id) {
@@ -785,6 +846,8 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   function renderNav() {
     var now = Date.now(), h = '', list = secOrders();
     h += '<button class="nav-item' + (view === 'home' ? ' on' : '') + '" data-home title="Inicio">' + IC.home + '<span class="lbl">Inicio</span></button>';
+    var nDone = 0; orders.forEach(function (x) { if (x.status === 'done') nDone++; });
+    h += '<button class="nav-item' + (view === 'hist' ? ' on' : '') + '" data-hist title="Historial de pedidos acabados">' + IC.history + '<span class="lbl">Historial</span><span class="count">' + nDone + '</span></button>';
     MENU.forEach(function (m) {
       if (m.sec) { h += secBlock(m, now); return; }
       h += '<button class="nav-item" disabled title="' + esc(m.label) + ' (en construcción)">' + IC[m.icon] + '<span class="lbl">' + esc(m.label) + '</span><span class="soon">Pronto</span></button>';
@@ -795,7 +858,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     var c = '';
     list.forEach(function (o) { c += '<button class="chip ' + (o.id === curId ? 'sel' : '') + '" data-ord="' + esc(o.id) + '"><span class="dot ' + statusOf(o, now) + '" style="margin:0"></span>' + esc(o.name || 'Sin nombre') + '</button>'; });
     c += '<button class="chip" data-new ' + (readOnly ? 'disabled' : '') + '>+ Nuevo</button>';
-    $('#chips').innerHTML = c; $('#chips').hidden = view === 'home';
+    $('#chips').innerHTML = c; $('#chips').hidden = view !== 'sec';
   }
   function tickNav(now) {
     $$('.ord[data-ord]').forEach(function (el) {
@@ -841,12 +904,14 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
 
   function update() {
     var now = Date.now(), o = cur(), S = SEC();
-    $('#h1').textContent = view === 'home' ? 'Inicio' : S.label; $('#planTitle').textContent = S.Nouns + (S.f ? ' asignadas' : ' asignados'); $('#mActLab').textContent = S.Nouns + (S.f ? ' activas' : ' activos');
+    $('#demoBar').hidden = !(DEMO_TOOLS && view === 'home');
+    $('#h1').textContent = view === 'home' ? 'Inicio' : view === 'hist' ? 'Historial' : S.label; $('#planTitle').textContent = S.Nouns + (S.f ? ' asignadas' : ' asignados'); $('#mActLab').textContent = S.Nouns + (S.f ? ' activas' : ' activos');
     setT($('#allOn'), S.f ? 'Todas' : 'Todos'); setT($('#allOff'), S.f ? 'Ninguna' : 'Ninguno');
     $('#planSub').textContent = (o && modeOf(o) === 'time') ? 'Pulsa para activar ' + (S.f ? 'las ' : 'los ') + S.nouns + ' que trabajarán; el reparto es a partes iguales' : curSec === 'digital' ? 'Pulsa para activar e indica cuántas uds caben por tirada y cuántos minutos dura' : 'Pulsa para activar y ajusta las uds/hora de cada una';
     $('#mTot').textContent = ' / ' + S.machines.length; $('#distTitle').textContent = 'Reparto de piezas por ' + S.noun;
-    if (view === 'home') { $('#loading').hidden = true; $('#empty').hidden = true; $('#work').hidden = true; $('#home').hidden = !ready; if (ready) renderHome(now); return; }
-    $('#home').hidden = true;
+    if (view === 'home') { $('#loading').hidden = true; $('#empty').hidden = true; $('#work').hidden = true; $('#hist').hidden = true; $('#home').hidden = !ready; if (ready) renderHome(now); return; }
+    if (view === 'hist') { $('#loading').hidden = true; $('#empty').hidden = true; $('#work').hidden = true; $('#home').hidden = true; $('#hist').hidden = !ready; if (ready) renderHist(); return; }
+    $('#home').hidden = true; $('#hist').hidden = true;
     $('#loading').hidden = ready;
     $('#empty').hidden = !(ready && secOrders().length === 0);
     $('#work').hidden = !(ready && o);
@@ -990,7 +1055,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
       if (q && r && producedAt(o, now) >= q) {
         var fin = Math.round(o.runStartedAt + (q - (+o.producedBase || 0)) / r * 3600000);
         finishing[o.id] = true;
-        write(o.id, { status: 'done', producedBase: q, finishedAt: fin });
+        write(o.id, { status: 'done', producedBase: q, finishedAt: fin, workMs: Math.round(bankMs(o, fin)) });
         addNotif(o, fin);
       }
     });
@@ -1007,6 +1072,9 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   document.addEventListener('click', function (e) {
     var t = e.target;
     var hm = t.closest('[data-home]'); if (hm) { goHome(); return; }
+    var hi = t.closest('[data-hist]'); if (hi) { goHist(); return; }
+    var so = t.closest('[data-hsort]'); if (so) { sortHist(so.getAttribute('data-hsort')); return; }
+    var hs = t.closest('[data-hsec]'); if (hs) { histSec = hs.getAttribute('data-hsec'); histSig = ''; renderHist(); return; }
     var ib = t.closest('[data-img]'); if (ib) { imgKey = ib.getAttribute('data-img'); $('#imgFile').click(); return; }
     var ir = t.closest('[data-imgreset]'); if (ir) { delete imgs[ir.getAttribute('data-imgreset')]; imgVer++; saveImgs(); renderHome(Date.now()); return; }
     var go = t.closest('[data-go]'); if (go) { setSection(go.getAttribute('data-go')); return; }
@@ -1080,12 +1148,16 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
 
   $('#btnRun').addEventListener('click', function () {
     var o = cur(); if (!o || readOnly) return; var now = Date.now(), st = statusOf(o, now);
-    if (st === 'running') write(o.id, { status: 'paused', producedBase: producedAt(o, now), runStartedAt: null });
-    else if (st !== 'done' && qtyOf(o) && rateOf(o) && !conflicts(o, now).length) write(o.id, { status: 'running', runStartedAt: now, producedBase: +o.producedBase || 0 });
+    if (st === 'running') write(o.id, { status: 'paused', producedBase: producedAt(o, now), runStartedAt: null, workMs: Math.round(bankMs(o, now)) });
+    else if (st !== 'done' && qtyOf(o) && rateOf(o) && !conflicts(o, now).length) {
+      var rp = { status: 'running', runStartedAt: now, producedBase: +o.producedBase || 0 };
+      if (!o.firstStartAt) { rp.firstStartAt = now; rp.estMs = estimateMs(o); }
+      write(o.id, rp);
+    }
   });
   $('#btnReset').addEventListener('click', function (e) {
     var o = cur(); if (!o) return;
-    armed(e.currentTarget, '¿Seguro?', function () { delete finishing[o.id]; dropNotif(o.id); write(o.id, { status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null }); });
+    armed(e.currentTarget, '¿Seguro?', function () { delete finishing[o.id]; dropNotif(o.id); write(o.id, { status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null, firstStartAt: null, workMs: 0, estMs: null }); });
   });
   $('#btnDel').addEventListener('click', function (e) {
     var o = cur(); if (!o) return;
@@ -1252,7 +1324,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
         kpi(IC.flag, 'var(--accent)', 'Próximo en terminar', next ? '<span data-o="' + esc(next.id) + '" data-k="eta"></span>' : '—', next ? esc(next.name || 'Pedido sin nombre') + ' · ' + endText(endOf(next), now) : 'Ningún pedido en marcha').replace('class="v mono"', 'class="v mono sm"') +
         '</div>';
 
-      h += '<div class="sec-t">En producción ahora</div><div class="glass now">';
+      var kp = h; h = '<div class="sec-t">En producción ahora</div><div class="glass now">';
       if (!run.length) h += '<div class="nempty">No hay ningún pedido en marcha ahora mismo.</div>';
       run.slice().sort(function (a, b) { return endOf(a) - endOf(b); }).forEach(function (o) {
         var n = activeList(o).length, S2 = SECTIONS[secOf(o)], id = esc(o.id);
@@ -1260,7 +1332,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
           '<span class="nr-prog"><i class="bar"><u data-o="' + id + '" data-k="pct" style="width:0%"></u></i><small><b class="mono" style="display:inline" data-o="' + id + '" data-k="pcttxt">0%</b> de ' + nf.format(qtyOf(o)) + ' uds</small></span>' +
           '<span class="nr-eta"><b class="mono" data-o="' + id + '" data-k="eta"></b><small>fin ' + endText(endOf(o), now) + '</small></span></button>';
       });
-      h += '</div><div class="sec-t">Departamentos</div><div class="depts">';
+      var nowH = h + '</div>'; h = '<div class="sec-t">Departamentos</div><div class="depts">';
       MENU.forEach(function (m) {
         var sec = m.sec ? SECTIONS[m.sec] : null, n = 0, usedHere = 0, runSec = 0, allSec = 0, dots = '';
         if (sec) {
@@ -1280,7 +1352,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
           (sec ? '<i class="bar"><u style="width:' + (n ? usedHere / n * 100 : 0).toFixed(1) + '%"></u></i><div class="d-sub">' + (runSec ? runSec + (runSec === 1 ? ' pedido en marcha' : ' pedidos en marcha') : 'Sin pedidos en marcha') + ' · ' + allSec + ' en total</div><div class="mdots">' + dots + '</div>' : '<div class="d-sub">Sección en construcción</div>') +
           '</div></article>';
       });
-      $('#home').innerHTML = h + '</div>'; homeSig = sig;
+      $('#home').innerHTML = kp + h + '</div>' + nowH; homeSig = sig;
     }
     $$('#home [data-o]').forEach(function (el) {
       var o = orders.get(el.getAttribute('data-o')); if (!o) return;
@@ -1290,6 +1362,188 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
       else if (k === 'eta') setT(el, etaText(o, now));
     });
   }
+
+  /* ---------- Historial de pedidos acabados ---------- */
+  var histSec = 'all', histSig = '', HMS = 3600000;
+  function goHist() {
+    view = 'hist'; openSecs = {}; saveOpen();
+    try { localStorage.setItem('mk_view', 'hist'); } catch (e) {}
+    histSig = ''; renderAll(); window.scrollTo({ top: 0 });
+  }
+  function histInfo(o) {
+    var q = qtyOf(o), r = rateOf(o), fin = +o.finishedAt || 0, work = +o.workMs || 0, est = +o.estMs || 0, start = +o.firstStartAt || 0;
+    if (!work && r > 0) work = q / r * HMS;                 /* pedidos anteriores a esta mejora */
+    if (!est) est = work;
+    if (!start && fin) start = fin - work;
+    var total = start && fin ? fin - start : work;
+    return { q: q, fin: fin, start: start, work: work, est: est, total: total, n: activeList(o).length, avg: work > 0 ? q / (work / HMS) : 0 };
+  }
+  function dtxt(ms) { return ms ? new Date(ms).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }).replace('.', '') + ' ' + hhmm(ms) : '—'; }
+  function devTxt(d) { return Math.abs(d) < 120000 ? { t: 'en plazo', c: 'ok' } : { t: (d > 0 ? '+' : '−') + fmtDur(Math.abs(d)), c: d > 0 ? 'bad' : 'ok' }; }
+  /* Orden de la tabla: por defecto, el último pedido acabado primero. Un clic en la cabecera ordena por esa columna; otro clic invierte. */
+  var HCOLS = [
+    { k: 'name', t: 'Pedido', txt: true, v: function (o) { return (o.name || 'Pedido sin nombre'); } },
+    { k: 'sec', t: 'Dpto.', full: 'departamento', txt: true, v: function (o) { return SECTIONS[secOf(o)].label; } },
+    { k: 'n', t: 'Máq.', r: true, v: function (o, i) { return i.n; } },
+    { k: 'q', t: 'Uds', r: true, v: function (o, i) { return i.q; } },
+    { k: 'start', t: 'Inicio', v: function (o, i) { return i.start; } },
+    { k: 'fin', t: 'Fin', v: function (o, i) { return i.fin; } },
+    { k: 'est', t: 'Previsto', v: function (o, i) { return i.est; } },
+    { k: 'total', t: 'Real', v: function (o, i) { return i.total; } },
+    { k: 'dev', t: 'Desviación', v: function (o, i) { return i.total - i.est; } },
+    { k: 'avg', t: 'Uds/h', r: true, v: function (o, i) { return i.avg; } }
+  ];
+  var histSort = { key: 'fin', dir: -1 };
+  try { var __hs = JSON.parse(localStorage.getItem('mk_hsort') || 'null'); if (__hs && HCOLS.some(function (c) { return c.k === __hs.key; })) histSort = { key: __hs.key, dir: __hs.dir === 1 ? 1 : -1 }; } catch (e) {}
+  /* Pedidos terminados, filtrados por departamento y búsqueda y ordenados según la cabecera elegida */
+  function histRows() {
+    var q = ($('#histQ').value || '').trim().toLowerCase(), col = HCOLS.filter(function (c) { return c.k === histSort.key; })[0] || HCOLS[5];
+    var rows = sortedOrders().filter(function (o) {
+      return o.status === 'done' && (histSec === 'all' || secOf(o) === histSec) && (!q || (o.name || '').toLowerCase().indexOf(q) > -1 || SECTIONS[secOf(o)].label.toLowerCase().indexOf(q) > -1);
+    }).map(function (o) { var i = histInfo(o); return { o: o, i: i, v: col.v(o, i) }; });
+    rows.sort(function (a, b) {
+      var c = col.txt ? String(a.v).localeCompare(String(b.v), 'es', { numeric: true, sensitivity: 'base' }) : (a.v - b.v);
+      return c ? c * histSort.dir : (b.i.fin - a.i.fin);   /* si empatan, el más reciente primero */
+    });
+    return rows;
+  }
+  function renderHist() {
+    var all = sortedOrders().filter(function (o) { return o.status === 'done'; }), q = ($('#histQ').value || '').trim().toLowerCase();
+    var sig = histSort.key + histSort.dir + '|' + histSec + '|' + q + '|' + all.map(function (o) { return [o.id, o.finishedAt, o.qty, o.name, o.workMs].join(':'); }).join(',');
+    if (sig === histSig) return; histSig = sig;
+    var cnt = {}; all.forEach(function (o) { cnt[secOf(o)] = (cnt[secOf(o)] || 0) + 1; });
+    var ch = '<button class="hchip' + (histSec === 'all' ? ' on' : '') + '" data-hsec="all">Todos<b>' + all.length + '</b></button>';
+    MENU.forEach(function (m) { if (m.sec) ch += '<button class="hchip' + (histSec === m.sec ? ' on' : '') + '" data-hsec="' + m.sec + '">' + esc(m.label) + '<b>' + (cnt[m.sec] || 0) + '</b></button>'; });
+    $('#histChips').innerHTML = ch;
+    var list = histRows(), uds = 0, wk = 0, tot = 0, rows = '';
+    list.forEach(function (r) {
+      var o = r.o, i = r.i, dv = devTxt(i.total - i.est); uds += i.q; wk += i.work; tot += i.total;
+      rows += '<tr class="hrow" data-ord="' + esc(o.id) + '" title="Abrir este pedido"><td class="nm"><b>' + esc(o.name || 'Pedido sin nombre') + '</b></td><td>' + esc(SECTIONS[secOf(o)].label) + '</td>' +
+        '<td class="mono r">' + i.n + '</td><td class="mono r">' + nf.format(i.q) + '</td><td class="mono">' + dtxt(i.start) + '</td><td class="mono">' + dtxt(i.fin) + '</td>' +
+        '<td class="mono">' + fmtDur(i.est) + '</td><td class="mono">' + fmtDur(i.total) + (i.total - i.work > 120000 ? '<small>en marcha ' + fmtDur(i.work) + '</small>' : '') + '</td>' +
+        '<td><span class="dev ' + dv.c + '">' + dv.t + '</span></td><td class="mono r">' + nf1.format(i.avg) + '</td></tr>';
+    });
+    var head = HCOLS.map(function (c) {
+      var on = c.k === histSort.key;
+      return '<th class="' + (c.r ? 'r ' : '') + (on ? 'on' : '') + '" aria-sort="' + (on ? (histSort.dir === 1 ? 'ascending' : 'descending') : 'none') + '"><button class="th-btn" data-hsort="' + c.k + '" title="Ordenar por ' + esc(c.full || c.t.toLowerCase()) + '">' + esc(c.t) + '<span class="arr" aria-hidden="true">' + (on && histSort.dir === 1 ? '▲' : '▼') + '</span></button></th>';
+    }).join('');
+    $('#histKpis').innerHTML =
+      kpi(IC.check, 'var(--accent-2)', 'Pedidos terminados', String(list.length), histSec === 'all' ? 'en todos los departamentos' : esc(SECTIONS[histSec].label)) +
+      kpi(IC.pkg, 'var(--accent)', 'Unidades producidas', nf.format(uds), 'suma de los pedidos mostrados') +
+      kpi(IC.flag, 'var(--accent-soft)', 'Tiempo medio por pedido', list.length ? fmtDur(tot / list.length) : '—', 'de inicio a fin, con pausas').replace('class="v mono"', 'class="v mono sm"') +
+      kpi(IC.zap, 'var(--accent-2)', 'Ritmo medio real', nf1.format(wk > 0 ? uds / (wk / HMS) : 0) + '<small> uds/h</small>', 'solo tiempo en marcha');
+    $('#histTable').innerHTML = list.length ?
+      '<table class="htable"><thead><tr>' + head + '</tr></thead><tbody>' + rows + '</tbody></table>' :
+      '<div class="nempty">' + (all.length ? 'Ningún pedido coincide con ese filtro.' : 'Todavía no hay pedidos terminados. Cuando un pedido llegue al 100 % aparecerá aquí con sus tiempos.') + '</div>';
+  }
+  function sortHist(key) {
+    var col = HCOLS.filter(function (c) { return c.k === key; })[0]; if (!col) return;
+    histSort = histSort.key === key ? { key: key, dir: -histSort.dir } : { key: key, dir: col.txt ? 1 : -1 };   /* texto: A→Z; números y fechas: de mayor/más reciente a menor */
+    try { localStorage.setItem('mk_hsort', JSON.stringify(histSort)); } catch (e) {}
+    histSig = ''; renderHist();
+  }
+  $('#histQ').addEventListener('input', function () { histSig = ''; renderHist(); });
+  $('#histCsv').addEventListener('click', function () {
+    var list = histRows();
+    function cell(v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; }
+    function mins(ms) { return Math.round(ms / 60000); }
+    var out = [['Pedido', 'Departamento', 'Máquinas', 'Unidades', 'Inicio', 'Fin', 'Previsto (min)', 'Real (min)', 'En marcha (min)', 'Uds/h']];
+    list.forEach(function (r) {
+      var o = r.o, i = r.i;
+      out.push([o.name || 'Pedido sin nombre', SECTIONS[secOf(o)].label, i.n, i.q, i.start ? new Date(i.start).toLocaleString('es-ES') : '', i.fin ? new Date(i.fin).toLocaleString('es-ES') : '', mins(i.est), mins(i.total), mins(i.work), String(Math.round(i.avg * 10) / 10).replace('.', ',')]);
+    });
+    var blob = new Blob(['\ufeff' + out.map(function (r) { return r.map(cell).join(';'); }).join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'historial-pedidos.csv';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  });
+
+  /* ================= DEMO: carga masiva para presentaciones =================
+     Temporal. Para quitarlo: poner DEMO_TOOLS = false, o borrar este bloque y el div #demoBar. */
+  var DEMO_TOOLS = true;
+  function seedDemo() {
+    var now = Date.now(), seed = 20261017, out = new Map(), seq = 0;
+    function rnd() { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
+    function ri(a, b) { return Math.round(a + rnd() * (b - a)); }
+    function pick(a) { return a[Math.floor(rnd() * a.length)]; }
+    function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+    var CAT = {
+      planchas: ['Camisetas algodón blanco', 'Bolsas non-woven', 'Gorras', 'Delantales', 'Mochilas de cuerdas', 'Cojines sublimados'],
+      tampografia: ['Bolígrafos Beta', 'Llaveros PVC', 'Pendrives 16GB', 'Mecheros', 'Rotuladores', 'Pelotas antiestrés', 'Reglas flexibles'],
+      serigrafia: ['Bolsas de algodón', 'Camisetas Basic', 'Delantales cocina', 'Paraguas', 'Sudaderas', 'Neceseres'],
+      pulpos: ['Camisetas evento', 'Sudaderas capucha', 'Polos', 'Chalecos', 'Gorras trucker'],
+      digital: ['Tazas sublimadas', 'Libretas A5', 'Fundas de móvil', 'Alfombrillas', 'Botellas térmicas', 'Posavasos'],
+      laser: ['Llaveros madera', 'Powerbanks', 'Botellas aluminio', 'Pendrives metal', 'Libretas cuero', 'Bolígrafos metálicos']
+    };
+    var CLI = ['Iberdrola', 'Mahou', 'Repsol', 'Seat', 'Telefónica', 'Mapfre', 'Bankinter', 'Inditex', 'Cruz Roja', 'Santander', 'Endesa', 'Vodafone', 'Cepsa', 'Decathlon', 'Ayto. Valencia', 'Ford'];
+    var RATES = { planchas: [40, 120], tampografia: [150, 480], serigrafia: [200, 600], pulpos: [60, 180], laser: [80, 300] };
+    var GROUP = { planchas: [2, 4], tampografia: [2, 5], serigrafia: [2, 4], pulpos: [2, 3], digital: [1, 2], laser: [2, 3] };
+
+    function mk(sec, ids, kind) {
+      var S = SECTIONS[sec], dig = sec === 'digital', total = 0, pls = {};
+      var tm = !dig && (kind === 'run' || kind === 'plan') && rnd() < 0.25;
+      S.machines.forEach(function (m) {
+        var on = ids.indexOf(m.id) > -1;
+        if (dig) { var pr = ri(30, 110), rm = ri(25, 55); pls[m.id] = on ? { on: true, perRun: pr, runMin: rm } : { on: false, perRun: null, runMin: null }; if (on) total += pr * 60 / rm; }
+        else { var r = Math.round(ri(RATES[sec][0], RATES[sec][1]) / 5) * 5; pls[m.id] = { on: on, rate: on ? r : DEF_RATE }; if (on) total += r; }
+      });
+      var T0 = ri(4, 16), q = Math.max(300, Math.round(total * T0 / 50) * 50);
+      var Rt = tm ? q / T0 : total, T = q / Rt;
+      var o = { id: 'demo' + (++seq) + Math.random().toString(36).slice(2, 5), section: sec, mode: tm ? 'time' : 'rate', tStart: null, tEnd: null, name: pick(CAT[sec]) + ' · ' + pick(CLI), qty: q, planchas: pls,
+        status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null, firstStartAt: null, workMs: 0, estMs: null, createdAt: now };
+      if (kind === 'run') {
+        var f = 0.3 + rnd() * 0.62, el = f * T * HMS;
+        if (!tm && rnd() < 0.3) {                       /* arrancó, se paró un rato y se reanudó */
+          var h1 = f * T * (0.35 + rnd() * 0.3), gap = ri(15, 70) * 60000;
+          o.producedBase = Rt * h1; o.runStartedAt = Math.round(now - el + h1 * HMS); o.workMs = Math.round(h1 * HMS); o.firstStartAt = Math.round(o.runStartedAt - h1 * HMS - gap);
+        } else { o.runStartedAt = Math.round(now - el); o.firstStartAt = o.runStartedAt; }
+        o.status = 'running'; o.estMs = Math.round(T * HMS); o.createdAt = o.firstStartAt - ri(20, 300) * 60000;
+        if (tm) { o.tStart = o.runStartedAt; o.tEnd = Math.round(o.tStart + T * HMS); }
+      } else if (kind === 'pause') {
+        var f2 = 0.2 + rnd() * 0.5;
+        o.status = 'paused'; o.producedBase = Math.round(q * f2); o.workMs = Math.round(f2 * T * HMS); o.estMs = Math.round(T * HMS);
+        o.firstStartAt = Math.round(now - o.workMs - ri(30, 150) * 60000); o.createdAt = o.firstStartAt - ri(20, 300) * 60000;
+      } else if (kind === 'plan') {
+        if (tm) { o.tStart = Math.round(now + ri(30, 240) * 60000); o.tEnd = Math.round(o.tStart + T * HMS); }
+        o.createdAt = now - ri(10, 600) * 60000;
+      } else {                                           /* done */
+        var fin = now - ri(25, 9 * 24 * 60) * 60000, pause = rnd() < 0.55 ? ri(10, 95) * 60000 : 0;
+        o.status = 'done'; o.producedBase = q; o.finishedAt = Math.round(fin); o.workMs = Math.round(T * HMS); o.firstStartAt = Math.round(fin - T * HMS - pause);
+        o.estMs = Math.round(T * HMS * (0.9 + rnd() * 0.2)); o.createdAt = o.firstStartAt - ri(30, 600) * 60000;
+      }
+      out.set(o.id, o);
+    }
+
+    Object.keys(CAT).forEach(function (sec) {
+      var all = SECTIONS[sec].machines.map(function (m) { return m.id; }), ids = shuffle(all), n = ids.length, g = GROUP[sec];
+      var free = Math.max(1, Math.round(n * 0.06)), pool = ids.slice(0, n - free), freeIds = ids.slice(n - free), paused = null;
+      while (pool.length) {
+        var kind = (!paused && n >= 9 && rnd() < 0.2) ? 'pause' : 'run';
+        var k = kind === 'pause' ? 1 : Math.min(pool.length, ri(g[0], g[1])); if (pool.length - k === 1) k = pool.length;
+        var grp = pool.splice(0, k);
+        if (kind === 'pause') paused = grp;
+        mk(sec, grp, kind);
+      }
+      mk(sec, freeIds.concat(paused ? paused.slice(0, 1) : []), 'plan');
+      for (var d = sec === 'tampografia' ? 8 : ri(3, 5); d > 0; d--) mk(sec, shuffle(all).slice(0, ri(g[0], g[1])), 'done');
+    });
+
+    orders = out; persist();
+    Object.keys(finishing).forEach(function (k) { delete finishing[k]; });
+    notifs = []; saveNotifs(); renderBell();
+    curId = null; builtFor = null; builtSec = null; distSig = ''; homeSig = ''; histSig = '';
+    goHome(); toast('Datos de demo cargados: ' + out.size + ' pedidos');
+  }
+  $('#btnDemo').addEventListener('click', function (e) {
+    if (!orders.size) { seedDemo(); return; }
+    armed(e.currentTarget, 'Esto reemplaza todo. ¿Seguro?', seedDemo);
+  });
+  $('#btnWipe').addEventListener('click', function (e) {
+    armed(e.currentTarget, '¿Borrar todos los pedidos?', function () {
+      orders = new Map(); persist(); Object.keys(finishing).forEach(function (k) { delete finishing[k]; });
+      notifs = []; saveNotifs(); renderBell(); curId = null; builtFor = null; builtSec = null; distSig = ''; homeSig = ''; histSig = '';
+      goHome(); toast('Todos los pedidos borrados');
+    });
+  });
 
   /* ---------- Arranque ---------- */
   function clocks() {
