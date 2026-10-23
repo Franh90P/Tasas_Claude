@@ -556,6 +556,104 @@ body.booting .app{opacity:0}
   .panel,.panel.narrow{left:0;right:0;width:auto;max-width:none;top:calc(100% + .5rem)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Inicio de sesión ---------- */
+.login{position:fixed;inset:0;z-index:1100;overflow:hidden;display:grid;place-items:center;padding:1rem;color:var(--ink);perspective:1500px;background:radial-gradient(900px 620px at 50% 38%,rgba(var(--deep-rgb),.95),transparent 70%),linear-gradient(160deg,var(--bg),var(--bg-2) 60%,var(--bg-3));transition:opacity .75s ease,transform .85s cubic-bezier(.55,0,.2,1),filter .75s ease}
+.login.out{opacity:0;transform:scale(1.1);filter:blur(8px);pointer-events:none}
+.lg-photo{position:absolute;inset:0;background:var(--bgphoto) center/cover no-repeat;opacity:.16;filter:blur(8px) saturate(.8)}
+.login::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 35%,rgba(var(--bg-rgb),.9) 100%)}
+.lg-floor{position:absolute;left:-60%;right:-60%;bottom:-6%;height:62%;transform:rotateX(72deg);transform-origin:50% 100%;background-image:linear-gradient(rgba(var(--accent-rgb),.26) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--accent-rgb),.26) 1px,transparent 1px);background-size:70px 70px;animation:lgGrid 5s linear infinite;-webkit-mask-image:linear-gradient(to top,#000 5%,transparent 88%);mask-image:linear-gradient(to top,#000 5%,transparent 88%)}
+@keyframes lgGrid{to{background-position:0 70px}}
+.lg-tiles{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.lg-tiles i{position:absolute;left:50%;top:50%;transform-style:preserve-3d;transform:translate3d(calc(var(--x) * 1vw + var(--px,0) * var(--d) * 1px),calc(var(--y) * 1vh + var(--py,0) * var(--d) * 1px),calc(var(--z) * 1px));transition:transform .25s ease-out}
+.lg-tiles b{display:block;position:relative;width:calc(var(--s) * 1px);height:calc(var(--s) * 1px);transform-style:preserve-3d;color:rgb(var(--c));animation:lgFloat 7s ease-in-out infinite;animation-delay:var(--t)}
+.lg-tiles svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;fill:rgba(var(--c),.16);stroke:currentColor;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+.lg-tiles svg.bk{transform:translateZ(-9px);opacity:.55;fill:rgba(var(--c),.08);filter:blur(.4px)}
+.lg-tiles svg.fr{transform:translateZ(5px);filter:drop-shadow(0 0 10px rgba(var(--c),.55))}
+@keyframes lgFloat{0%,100%{transform:translateY(0) rotateX(8deg) rotateY(-14deg)}50%{transform:translateY(-18px) rotateX(-6deg) rotateY(14deg)}}
+.lg-stage{position:relative;z-index:2;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out;animation:lgIn 1s cubic-bezier(.2,.85,.2,1) both}
+@keyframes lgIn{from{opacity:0;transform:translateZ(-300px) rotateX(14deg) translateY(40px)}to{opacity:1}}
+.lg-card{position:relative;width:min(26rem,calc(100vw - 2rem));padding:1.4rem 1.7rem 1.4rem;border-radius:1.7rem;transform-style:preserve-3d;display:flex;flex-direction:column;gap:.85rem;box-shadow:0 50px 90px -30px rgba(0,0,0,.8),0 0 0 1px var(--line-2)}
+.lg-pane{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(rgba(255,255,255,.06),rgba(255,255,255,.02)),rgba(var(--bg-rgb),.66);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);overflow:hidden}
+.lg-pane::before{content:"";position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(var(--accent-rgb),.2),transparent 60%);transition:background .1s}
+.lg-card>*:not(.lg-pane){position:relative}
+.lg-logo{width:min(15.5rem,72%);aspect-ratio:3.2/1;margin:.2rem auto 0;transform-style:preserve-3d;transform:translateZ(70px)}
+.lg-logo-in{position:absolute;inset:0;transform-style:preserve-3d;animation:lgSway 7s ease-in-out infinite alternate}
+@keyframes lgSway{from{transform:rotateY(-16deg) rotateX(5deg)}to{transform:rotateY(16deg) rotateX(-3deg)}}
+.lg-logo svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lg-logo svg:last-child{filter:drop-shadow(0 0 14px rgba(var(--accent-rgb),.75))}
+.lg-title{margin:.2rem 0 0;text-align:center;font-size:1.02rem;font-weight:700;letter-spacing:.01em;transform:translateZ(34px)}
+.lg-sub{margin:-.45rem 0 .2rem;text-align:center;font-size:.8rem;color:var(--ink-3);transform:translateZ(28px)}
+.lg-f{display:flex;align-items:center;gap:.7rem;padding:.2rem .35rem .2rem .95rem;border-radius:1rem;background:var(--well);border:1px solid var(--line-2);transition:border-color .2s,box-shadow .2s;transform:translateZ(26px)}
+.lg-f:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(var(--accent-rgb),.2)}
+.lg-f svg{width:1.1rem;height:1.1rem;flex:none;color:var(--ink-3)}
+.lg-f:focus-within>svg{color:var(--accent)}
+.lg-f input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--ink);font:inherit;font-weight:600;padding:.8rem 0}
+.lg-f input::placeholder{color:var(--ink-3);font-weight:400}
+.lg-eye{width:2.3rem;height:2.3rem;border-radius:.7rem;display:grid;place-items:center;color:var(--ink-3);flex:none}
+.lg-eye:hover{color:var(--ink);background:var(--glass-2)}
+.lg-eye svg{width:1.1rem;height:1.1rem}
+.lg-chk{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--ink-2);cursor:pointer;transform:translateZ(18px)}
+.lg-chk input{accent-color:var(--accent);width:1rem;height:1rem}
+.lg-err{min-height:1.1rem;font-size:.8rem;font-weight:600;color:#ff9aa3;text-align:center;transform:translateZ(18px)}
+.lg-go{display:flex;align-items:center;justify-content:center;gap:.6rem;padding:.95rem 1rem;border-radius:1rem;font-weight:800;font-size:.95rem;color:var(--on-accent,#1b1004);background:linear-gradient(135deg,var(--accent),var(--accent-soft));box-shadow:0 14px 30px -10px rgba(var(--accent-rgb),.7);transform:translateZ(40px);transition:filter .2s,box-shadow .2s,transform .2s}
+.lg-go:hover{filter:brightness(1.08);box-shadow:0 18px 36px -8px rgba(var(--accent-rgb),.85)}
+.lg-go:active{transform:translateZ(30px) scale(.98)}
+.lg-go:disabled{opacity:.7;cursor:progress}
+.lg-go svg{width:1.1rem;height:1.1rem}
+.lg-foot{margin:.1rem 0 0;text-align:center;font-size:.72rem;color:var(--ink-3);transform:translateZ(14px)}
+.lg-card.shake{animation:lgShake .45s cubic-bezier(.36,.07,.19,.97)}
+@keyframes lgShake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+.lg-stage.ok{animation:lgOk .9s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes lgOk{0%{opacity:1}100%{opacity:0;transform:translateZ(520px) rotateX(-8deg)}}
+@media (max-width:700px){.lg-tiles i:nth-child(n+5){display:none}.lg-tiles i:nth-child(1){--x:-22!important;--y:-41!important;--s:84!important}.lg-tiles i:nth-child(2){--x:22!important;--y:-41!important;--s:78!important}.lg-tiles i:nth-child(3){--x:-22!important;--y:41!important;--s:78!important}.lg-tiles i:nth-child(4){--x:22!important;--y:41!important;--s:80!important}.lg-card{padding:1.2rem 1.2rem 1.2rem}}
+@media (max-height:640px){.lg-sub,.lg-foot{display:none}.lg-logo{width:11rem}}
+html.is-login .app,html.is-login .bgphoto{visibility:hidden}
+/* Usuario en la cabecera */
+.ubtn{font-weight:800;font-size:.82rem;letter-spacing:.02em;color:var(--accent)}
+.uinfo{padding:.2rem .4rem .6rem;display:flex;flex-direction:column;gap:.2rem}
+.uinfo b{font-size:1rem}.uinfo small{color:var(--ink-3);font-size:.76rem;line-height:1.35}
+.uacc{display:flex;flex-wrap:wrap;gap:.35rem;margin:.5rem 0 .2rem}
+.uacc span{font-size:.72rem;font-weight:700;padding:.25rem .6rem;border-radius:99px;background:rgba(var(--accent-rgb),.16);color:var(--accent)}
+/* ---------- Tutorial guiado ---------- */
+.tool.attn{border-color:rgba(var(--accent-rgb),.85);animation:tourAttn 2s ease-out infinite}
+@keyframes tourAttn{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.7)}70%{box-shadow:0 0 0 13px rgba(var(--accent-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),0)}}
+.tour-root{position:fixed;inset:0;z-index:2000}
+.tour-root.offer{display:grid;place-items:center;padding:1rem}
+.tour-hole{position:fixed;left:50%;top:50%;width:0;height:0;border-radius:1rem;pointer-events:none;box-shadow:0 0 0 9999px rgba(2,6,16,.76),0 0 0 2px rgba(var(--accent-rgb),.95),0 0 30px 4px rgba(var(--accent-rgb),.4)}
+.tour-hole.none{box-shadow:0 0 0 9999px rgba(2,6,16,.8)}
+.tour-root.anim .tour-hole{transition:left .4s cubic-bezier(.4,0,.2,1),top .4s cubic-bezier(.4,0,.2,1),width .4s cubic-bezier(.4,0,.2,1),height .4s cubic-bezier(.4,0,.2,1)}
+.tour-root.anim .tour-card:not(.tour-offer){transition:left .4s cubic-bezier(.4,0,.2,1),top .4s cubic-bezier(.4,0,.2,1),opacity .25s}
+.tour-card{position:fixed;left:0;top:0;opacity:0;width:min(25rem,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow-y:auto;padding:1.05rem 1.2rem 1rem;background:var(--bg-2);color:var(--ink);border:1px solid var(--line-2);border-radius:1.4rem;box-shadow:0 26px 70px -10px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.07);outline:none}
+.tour-top{display:flex;align-items:center;gap:.6rem}
+.tour-tag{font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tour-count{font-size:.72rem;color:var(--ink-3)}
+.tour-x{width:1.8rem;height:1.8rem;border-radius:.6rem;color:var(--ink-3);font-size:.9rem;line-height:1;flex:none}
+.tour-x:hover{background:var(--glass-2);color:var(--ink)}
+.tour-prog{height:.28rem;border-radius:99px;background:var(--glass-2);overflow:hidden;margin-top:.65rem}
+.tour-prog i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .4s}
+.tour-card h3{margin:.8rem 0 .15rem;font-size:1.12rem;font-weight:800;letter-spacing:-.01em;line-height:1.25}
+.tour-body{font-size:.86rem;line-height:1.5;color:var(--ink-2)}
+.tour-body p{margin:.5rem 0}
+.tour-body b{color:var(--ink);font-weight:700}
+.tour-body ul,.tour-body ol{margin:.45rem 0;padding-left:1.15rem}
+.tour-body li{margin:.28rem 0}
+.tour-body li::marker{color:var(--accent)}
+.tour-foot{display:flex;align-items:center;gap:.5rem;margin-top:.95rem}
+.tour-foot .sp{flex:1}
+.tour-foot .hbtn,.tour-skip{white-space:nowrap}
+.tour-foot .hbtn{padding:.6rem .85rem}
+.tour-foot .hbtn:disabled{opacity:.35;cursor:not-allowed}
+.tour-skip{font-size:.75rem;font-weight:600;color:var(--ink-3);padding:.5rem .6rem;border-radius:.6rem}
+.tour-skip:hover{color:var(--ink);background:var(--glass)}
+.tour-keys{margin-top:.6rem;font-size:.66rem;color:var(--ink-3);text-align:center}
+.tour-offer{position:relative;left:auto;top:auto;opacity:1;width:min(27rem,100%);text-align:center;padding:1.6rem 1.5rem 1.3rem}
+.tour-offer .tour-ic{width:3.4rem;height:3.4rem;border-radius:1.1rem;margin:0 auto;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:var(--on-accent);box-shadow:0 10px 28px -8px rgba(var(--accent-rgb),.6)}
+.tour-offer .tour-ic svg{width:1.7rem;height:1.7rem}
+.tour-offer h3{margin-top:1rem;font-size:1.3rem}
+.tour-offer .tour-foot{justify-content:center;flex-wrap:wrap;margin-top:1.2rem}
+.tour-mute{font-size:.78rem;color:var(--ink-3)}
+@media (max-width:700px){.tour-card:not(.tour-offer){max-height:48dvh}.tour-card{padding:.95rem 1rem .9rem}.tour-body{font-size:.83rem}.tour-keys{display:none}}
 </style>
 </head>
 <body>
@@ -571,7 +669,7 @@ body.booting .app{opacity:0}
 </div>
 <script>
 /* Pantalla de carga: canvas 3D propio (sin librerías). Para quitarla: borrar este bloque, el div #splash y su CSS. */
-(function () {
+window.__mkSplash = function () {
   var sp = document.getElementById('splash'); if (!sp) return;
   var cv = document.getElementById('spCanvas'), cx = cv.getContext('2d'), body = document.body;
   var reduce = false; try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
@@ -738,6 +836,121 @@ body.booting .app{opacity:0}
     t0 = 1; var n = 0; yaw = .25; pitch = -.14; scl = 1; prog = 1; setUI();
     (function wait() { if (window.__mkReady || n++ > 40) { setTimeout(finish, 700); } else setTimeout(wait, 50); })();
   } else raf = requestAnimationFrame(frame);
+};
+</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><path id="lgWm" fill-rule="evenodd" d="M0.644,-0.25 0.659,-0.242 0.668,-0.169 0.666,0.421 0.657,0.44 0.65,0.445 0.611,0.445 0.601,0.424 0.601,-0.233 0.604,-0.243 0.616,-0.25ZM1.339,-0.25 1.398,-0.233 1.464,-0.194 1.508,-0.153 1.547,-0.099 1.575,-0.04 1.591,0.015 1.6,0.082 1.597,0.153 1.582,0.221 1.554,0.288 1.514,0.347 1.471,0.39 1.428,0.419 1.369,0.445 1.304,0.457 1.238,0.452 1.179,0.434 1.114,0.396 1.071,0.356 1.031,0.301 1.003,0.242 0.986,0.187 0.977,0.12 0.98,0.047 0.992,-0.009 1.025,-0.089 1.056,-0.136 1.106,-0.188 1.149,-0.218 1.213,-0.245 1.275,-0.255ZM1.218,-0.175 1.178,-0.154 1.154,-0.136 1.111,-0.089 1.083,-0.04 1.065,0.009 1.055,0.064 1.053,0.122 1.06,0.175 1.077,0.228 1.102,0.277 1.129,0.313 1.163,0.345 1.207,0.372 1.253,0.387 1.302,0.39 1.342,0.382 1.388,0.363 1.425,0.336 1.464,0.295 1.496,0.239 1.513,0.193 1.523,0.138 1.524,0.08 1.517,0.027 1.505,-0.015 1.478,-0.071 1.452,-0.108 1.416,-0.142 1.367,-0.172 1.323,-0.185 1.275,-0.188ZM-1.504,-0.212 -1.48,-0.23 -1.438,-0.25 -1.36,-0.264 -1.333,-0.264 -1.253,-0.249 -1.213,-0.228 -1.145,-0.16 -1.138,-0.162 -1.112,-0.194 -1.066,-0.231 -1.034,-0.249 -0.97,-0.264 -0.906,-0.261 -0.85,-0.252 -0.8,-0.227 -0.773,-0.203 -0.739,-0.15 -0.715,-0.064 -0.714,0.421 -0.718,0.436 -0.734,0.445 -0.764,0.445 -0.776,0.44 -0.786,0.424 -0.788,-0.067 -0.792,-0.095 -0.807,-0.127 -0.832,-0.16 -0.853,-0.176 -0.9,-0.196 -0.975,-0.196 -1.026,-0.173 -1.049,-0.159 -1.09,-0.116 -1.099,-0.09 -1.112,-0.071 -1.129,0.016 -1.129,0.424 -1.141,0.445 -1.164,0.446 -1.179,0.442 -1.189,0.422 -1.189,-0.036 -1.192,-0.065 -1.204,-0.09 -1.207,-0.113 -1.228,-0.15 -1.255,-0.173 -1.298,-0.194 -1.367,-0.197 -1.431,-0.176 -1.462,-0.156 -1.493,-0.117 -1.511,-0.08 -1.532,-0.001 -1.532,0.425 -1.536,0.44 -1.547,0.446 -1.584,0.442 -1.594,0.425 -1.6,0.384 -1.599,0.034 -1.585,-0.079 -1.572,-0.101 -1.566,-0.127 -1.542,-0.169ZM-0.228,-0.236 -0.207,-0.23 -0.162,-0.19 -0.146,-0.169 -0.125,-0.127 -0.119,0.022 -0.121,0.199 -0.127,0.253 -0.164,0.329 -0.22,0.39 -0.279,0.428 -0.299,0.433 -0.322,0.448 -0.407,0.457 -0.531,0.446 -0.549,0.433 -0.574,0.425 -0.594,0.411 -0.632,0.369 -0.653,0.331 -0.66,0.27 -0.654,0.185 -0.631,0.136 -0.613,0.113 -0.583,0.09 -0.551,0.073 -0.53,0.07 -0.509,0.056 -0.377,0.049 -0.226,0.031 -0.199,0.007 -0.183,-0.022 -0.182,-0.059 -0.199,-0.122 -0.226,-0.159 -0.25,-0.176 -0.319,-0.197 -0.402,-0.194 -0.454,-0.176 -0.472,-0.163 -0.493,-0.156 -0.54,-0.09 -0.545,-0.065 -0.558,-0.039 -0.558,-0.019 -0.567,-0.007 -0.61,-0.006 -0.617,-0.012 -0.62,-0.034 -0.614,-0.092 -0.601,-0.113 -0.594,-0.136 -0.558,-0.187 -0.533,-0.21 -0.5,-0.231 -0.474,-0.239 -0.459,-0.249 -0.368,-0.265 -0.247,-0.249ZM-0.196,0.09 -0.21,0.09 -0.229,0.102 -0.426,0.11 -0.46,0.122 -0.506,0.127 -0.546,0.148 -0.577,0.184 -0.595,0.236 -0.595,0.273 -0.577,0.329 -0.554,0.353 -0.522,0.374 -0.496,0.378 -0.472,0.39 -0.447,0.393 -0.38,0.39 -0.356,0.378 -0.324,0.374 -0.284,0.351 -0.239,0.31 -0.202,0.246 -0.183,0.166 -0.18,0.111 -0.185,0.098ZM0.013,-0.455 0.021,-0.451 0.027,-0.436 0.027,0.074 0.036,0.086 0.045,0.084 0.21,-0.058 0.364,-0.179 0.438,-0.246 0.453,-0.25 0.519,-0.25 0.531,-0.246 0.531,-0.237 0.517,-0.219 0.435,-0.156 0.226,0.025 0.207,0.036 0.165,0.08 0.174,0.095 0.537,0.415 0.545,0.43 0.54,0.443 0.479,0.445 0.448,0.428 0.156,0.169 0.104,0.132 0.094,0.133 0.078,0.145 0.027,0.196 0.026,0.428 0.017,0.44 0.001,0.446 -0.027,0.445 -0.039,0.436 -0.044,0.422 -0.044,-0.436 -0.032,-0.452ZM0.804,-0.452 0.816,-0.43 0.816,-0.264 0.837,-0.25 0.948,-0.25 0.96,-0.243 0.964,-0.196 0.955,-0.181 0.838,-0.179 0.822,-0.173 0.814,-0.162 0.814,0.265 0.819,0.316 0.831,0.351 0.856,0.374 0.94,0.374 0.96,0.381 0.958,0.428 0.921,0.445 0.865,0.446 0.811,0.428 0.777,0.4 0.755,0.35 0.752,-0.427 0.757,-0.448 0.769,-0.457ZM0.65,-0.452 0.662,-0.439 0.665,-0.425 0.663,-0.322 0.657,-0.305 0.643,-0.296 0.608,-0.299 0.601,-0.319 0.601,-0.431 0.605,-0.449 0.617,-0.457Z"/></defs></svg>
+<div class="login" id="login" role="dialog" aria-modal="true" aria-labelledby="lgT" hidden>
+  <div class="lg-photo"></div>
+  <div class="lg-floor"></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="ob-shirt" viewBox="0 0 100 100"><path d="M35 14 L20 22 L8 40 L22 48 L28 41 L28 86 L72 86 L72 41 L78 48 L92 40 L80 22 L65 14 Q50 28 35 14 Z"/><path d="M40 14 Q50 22 60 14" fill="none"/></symbol><symbol id="ob-power" viewBox="0 0 100 100"><rect x="30" y="8" width="40" height="84" rx="10"/><path d="M52 26 L41 47 H50 L46 63 L59 41 H50 Z" fill="currentColor" stroke="none" opacity=".85"/><path d="M38 74 H62" fill="none"/><path d="M42 82 H58" fill="none" opacity=".6"/><rect x="44" y="4" width="12" height="6" rx="2"/></symbol><symbol id="ob-pad" viewBox="0 0 100 100"><rect x="24" y="16" width="54" height="74" rx="6"/><path d="M35 8 V24 M46 8 V24 M57 8 V24 M68 8 V24" fill="none"/><path d="M34 44 H68 M34 56 H68 M34 68 H54" fill="none"/></symbol><symbol id="ob-pen" viewBox="0 0 100 100"><g transform="rotate(40 50 50)"><rect x="41" y="6" width="18" height="62" rx="6"/><path d="M41 68 L50 92 L59 68 Z"/><path d="M59 16 H67 V40" fill="none"/><path d="M41 22 H59" fill="none"/></g></symbol><symbol id="ob-mug" viewBox="0 0 100 100"><path d="M22 30 H68 V62 Q68 82 45 82 Q22 82 22 62 Z"/><path d="M68 38 H76 Q88 38 88 51 Q88 64 76 64 H68" fill="none"/><path d="M36 12 Q31 19 36 24 M50 10 Q45 17 50 22" fill="none"/></symbol><symbol id="ob-bag" viewBox="0 0 100 100"><path d="M28 32 Q28 14 50 14 Q72 14 72 32 V82 Q72 90 64 90 H36 Q28 90 28 82 Z"/><rect x="36" y="56" width="28" height="22" rx="6"/><path d="M33 44 H67" fill="none"/><path d="M42 14 Q42 5 50 5 Q58 5 58 14" fill="none"/></symbol><symbol id="ob-cap" viewBox="0 0 100 100"><path d="M16 58 Q18 26 50 24 Q82 26 84 58 Z"/><path d="M14 60 H84 Q98 60 94 69 Q78 72 58 66 H14 Z"/><path d="M50 24 V58" fill="none"/><circle cx="50" cy="23" r="3.5"/></symbol><symbol id="ob-bottle" viewBox="0 0 100 100"><path d="M40 12 H60 V22 Q70 28 70 40 V84 Q70 91 63 91 H37 Q30 91 30 84 V40 Q30 28 40 22 Z"/><rect x="41" y="3" width="18" height="9" rx="3"/><path d="M30 54 H70 M30 72 H70" fill="none" opacity=".7"/></symbol></defs></svg>
+  <div class="lg-tiles" aria-hidden="true"><i style="--x:-31;--y:-24;--z:-200;--d:0.9;--s:195"><b style="--c:255,138,31;--t:-0s"><svg class="bk" aria-hidden="true"><use href="#ob-shirt"/></svg><svg class="fr" aria-hidden="true"><use href="#ob-shirt"/></svg></b></i><i style="--x:31;--y:-28;--z:-300;--d:1.1;--s:169"><b style="--c:34,227,160;--t:-1.2s"><svg class="bk" aria-hidden="true"><use href="#ob-power"/></svg><svg class="fr" aria-hidden="true"><use href="#ob-power"/></svg></b></i><i style="--x:-33;--y:17;--z:-140;--d:1.4;--s:162"><b style="--c:34,227,160;--t:-2.1s"><svg class="bk" aria-hidden="true"><use href="#ob-pad"/></svg><svg class="fr" aria-hidden="true"><use href="#ob-pad"/></svg></b></i><i style="--x:33;--y:16;--z:-190;--d:1.2;--s:162"><b style="--c:255,138,31;--t:-0.6s"><svg class="bk" aria-hidden="true"><use href="#ob-mug"/></svg><svg class="fr" aria-hidden="true"><use href="#ob-mug"/></svg></b></i><i style="--x:-22;--y:-38;--z:-420;--d:0.7;--s:136"><b style="--c:34,227,160;--t:-3s"><svg class="bk" aria-hidden="true"><use href="#ob-pen"/></svg><svg class="fr" aria-hidden="true"><use href="#ob-pen"/></svg></b></i><i style="--x:24;--y:30;--z:-380;--d:0.8;--s:150"><b style="--c:255,138,31;--t:-1.8s"><svg class="bk" aria-hidden="true"><use href="#ob-bag"/></svg><svg class="fr" aria-hidden="true"><use href="#ob-bag"/></svg></b></i><i style="--x:-41;--y:-3;--z:-500;--d:0.6;--s:130"><b style="--c:34,227,160;--t:-2.6s"><svg class="bk" aria-hidden="true"><use href="#ob-cap"/></svg><svg class="fr" aria-hidden="true"><use href="#ob-cap"/></svg></b></i><i style="--x:42;--y:-6;--z:-520;--d:0.6;--s:130"><b style="--c:255,138,31;--t:-0.3s"><svg class="bk" aria-hidden="true"><use href="#ob-bottle"/></svg><svg class="fr" aria-hidden="true"><use href="#ob-bottle"/></svg></b></i></div>
+  <div class="lg-stage" id="lgStage">
+    <form class="lg-card" id="lgCard" autocomplete="on" novalidate>
+      <div class="lg-pane"></div>
+      <div class="lg-logo" id="lgLogo" role="img" aria-label="Makito"><div class="lg-logo-in" id="lgLogoIn"></div></div>
+      <h1 class="lg-title" id="lgT">Planificación de producción</h1>
+      <p class="lg-sub" id="lgSub">Entra con tu usuario para ver tu departamento</p>
+      <label class="lg-f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><input id="lgUser" name="username" type="text" placeholder="Usuario" aria-label="Usuario" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="40"></label>
+      <label class="lg-f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><input id="lgPass" name="password" type="password" placeholder="Contraseña" aria-label="Contraseña" autocomplete="current-password" maxlength="60"><button type="button" class="lg-eye" id="lgEye" aria-label="Mostrar la contraseña" title="Mostrar la contraseña"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></label>
+      <label class="lg-chk"><input type="checkbox" id="lgRem"><span>Mantener la sesión iniciada en este equipo</span></label>
+      <div class="lg-err" id="lgErr" role="alert" aria-live="assertive"></div>
+      <button class="lg-go" id="lgGo" type="submit"><span id="lgGoT">Entrar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <p class="lg-foot">¿No puedes entrar? Habla con tu responsable.</p>
+    </form>
+  </div>
+</div>
+<script>
+/* Inicio de sesión. Es solo una barrera de la interfaz: sirve para que cada persona vea únicamente su departamento.
+   Las contraseñas están aquí, en el navegador, así que NO es seguridad real: cuando haya servidor se moverá allí. */
+(function () {
+  var ALL = '*';
+  var USERS = {};
+  function U(id, name, scope, label) { USERS[id] = { id: id, n: name, s: scope, p: id, label: label }; }   /* p = contraseña (por ahora igual que el usuario) */
+  U('jeroplanchas', 'Jero', ['planchas'], 'Planchas'); U('eloyplanchas', 'Eloy', ['planchas'], 'Planchas'); U('henryplanchas', 'Henry', ['planchas'], 'Planchas');
+  U('jeroauto', 'Jero', ['serigrafia'], 'Serigrafía Auto'); U('franauto', 'Fran', ['serigrafia'], 'Serigrafía Auto');
+  U('encarnipulpo', 'Encarni', ['pulpos'], 'Serigrafía Pulpos'); U('juanfranpulpo', 'Juanfran', ['pulpos'], 'Serigrafía Pulpos'); U('alejopulpo', 'Alejo', ['pulpos'], 'Serigrafía Pulpos');
+  U('juantampo', 'Juan', ['tampografia'], 'Tampografía'); U('pedrotampo', 'Pedro', ['tampografia'], 'Tampografía'); U('migueltampo', 'Miguel', ['tampografia'], 'Tampografía');
+  U('ramonlaser', 'Ramón', ['laser'], 'Láser'); U('adrianlaser', 'Adrián', ['laser'], 'Láser');
+  U('melchormkt', 'Melchor', ALL, 'Todos los departamentos'); U('oscarmkt', 'Óscar', ALL, 'Todos los departamentos'); U('pacoteruel', 'Paco Teruel', ALL, 'Todos los departamentos');
+  U('josealbertomkt', 'José Alberto', ALL, 'Todos los departamentos'); U('franciscoparra', 'Francisco Parra', ALL, 'Todos los departamentos');
+  var ORDER = ['tampografia', 'serigrafia', 'pulpos', 'digital', 'laser', 'planchas'], hooks = [];
+  var A = window.MK_AUTH = {
+    user: null,
+    can: function (sec) { var u = A.user; return !!u && (u.s === ALL || u.s.indexOf(sec) > -1); },
+    isAll: function () { return !!A.user && A.user.s === ALL; },
+    firstSec: function () { for (var i = 0; i < ORDER.length; i++) if (A.can(ORDER[i])) return ORDER[i]; return 'planchas'; },
+    onLogin: function (fn) { hooks.push(fn); },
+    logout: function () { try { localStorage.removeItem('mk_auth'); sessionStorage.removeItem('mk_auth'); } catch (e) {} location.reload(); }
+  };
+  function find(id) { id = String(id || '').trim().toLowerCase(); return USERS.hasOwnProperty(id) ? USERS[id] : null; }
+  var saved = null;
+  try { saved = sessionStorage.getItem('mk_auth') || localStorage.getItem('mk_auth'); } catch (e) {}
+  var su = find(saved); if (su) A.user = su;
+
+  var lg = document.getElementById('login'); if (!lg) return;
+  var param = /[?&]nologin/.test(location.search);
+  function startApp() { if (window.__mkSplash) window.__mkSplash(); }
+  if (A.user) { lg.parentNode.removeChild(lg); startApp(); return; }
+
+  /* ----- Logotipo en 3D: copias del mismo contorno apiladas en profundidad ----- */
+  (function () {
+    var rgb = (getComputedStyle(document.documentElement).getPropertyValue('--accent-rgb') || '255,138,31').trim().split(',').map(Number), n = 11, h = '';
+    for (var i = n; i >= 0; i--) {
+      var k = .28 + .5 * (1 - i / n), front = i === 0, fill = front ? '#fff7ee' : 'rgb(' + rgb.map(function (v) { return Math.round(v * k); }).join(',') + ')';
+      h += '<svg viewBox="-1.6 -.5 3.2 1" style="transform:translateZ(' + (-i * 2.2) + 'px);fill:' + fill + '" aria-hidden="true"><use href="#lgWm"/></svg>';
+    }
+    document.getElementById('lgLogoIn').innerHTML = h;
+  })();
+
+  document.documentElement.classList.add('is-login');
+  lg.hidden = false;
+  var u = document.getElementById('lgUser'), p = document.getElementById('lgPass'), err = document.getElementById('lgErr'), card = document.getElementById('lgCard'), go = document.getElementById('lgGo'), stage = document.getElementById('lgStage');
+  try { u.value = localStorage.getItem('mk_lastuser') || ''; } catch (e) {}
+  setTimeout(function () { (u.value ? p : u).focus({ preventScroll: true }); }, 500);
+
+  /* ----- Inclinación 3D con el ratón ----- */
+  var raf = 0, nx = 0, ny = 0;
+  lg.addEventListener('pointermove', function (e) {
+    nx = e.clientX / window.innerWidth - .5; ny = e.clientY / window.innerHeight - .5;
+    if (raf) return;
+    raf = requestAnimationFrame(function () {
+      raf = 0; stage.style.setProperty('--ry', (nx * 14).toFixed(2) + 'deg'); stage.style.setProperty('--rx', (-ny * 10).toFixed(2) + 'deg');
+      lg.style.setProperty('--px', (nx * 70).toFixed(1)); lg.style.setProperty('--py', (ny * 50).toFixed(1));
+      var r = card.getBoundingClientRect(); card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%'); card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    });
+  });
+  lg.addEventListener('pointerleave', function () { stage.style.setProperty('--ry', '0deg'); stage.style.setProperty('--rx', '0deg'); lg.style.setProperty('--px', '0'); lg.style.setProperty('--py', '0'); });
+
+  document.getElementById('lgEye').addEventListener('click', function () {
+    var show = p.type === 'password'; p.type = show ? 'text' : 'password'; this.setAttribute('aria-label', show ? 'Ocultar la contraseña' : 'Mostrar la contraseña'); this.title = this.getAttribute('aria-label'); p.focus();
+  });
+
+  /* ----- Entrar (con un pequeño freno tras varios fallos) ----- */
+  var fails = 0, lockUntil = 0, busy = false;
+  function fail(msg) {
+    err.textContent = msg; card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+  }
+  card.addEventListener('submit', function (e) {
+    e.preventDefault(); if (busy) return;
+    var now = Date.now();
+    if (now < lockUntil) { fail('Demasiados intentos. Espera ' + Math.ceil((lockUntil - now) / 1000) + ' s.'); return; }
+    var un = u.value.trim(); if (!un || !p.value) { fail(!un ? 'Escribe tu usuario.' : 'Escribe tu contraseña.'); (!un ? u : p).focus(); return; }
+    var usr = find(un);
+    if (!usr || usr.p !== p.value) {
+      fails++; p.value = ''; p.focus();
+      if (fails >= 5) { lockUntil = now + 30000; fails = 0; fail('Demasiados intentos. Espera 30 s.'); } else fail('Usuario o contraseña incorrectos.');
+      return;
+    }
+    busy = true; fails = 0; err.textContent = ''; go.disabled = true; document.getElementById('lgGoT').textContent = 'Entrando…';
+    try { var st = document.getElementById('lgRem').checked ? localStorage : sessionStorage; st.setItem('mk_auth', usr.id); localStorage.setItem('mk_lastuser', usr.id); } catch (x) {}
+    A.user = usr;
+    document.getElementById('lgT').textContent = '¡Hola, ' + usr.n + '!'; document.getElementById('lgSub').textContent = usr.label;
+    hooks.forEach(function (fn) { try { fn(usr); } catch (x) {} });
+    setTimeout(function () { stage.classList.add('ok'); }, 650);
+    setTimeout(function () { document.documentElement.classList.remove('is-login'); startApp(); lg.classList.add('out'); }, 1350);
+    setTimeout(function () { if (lg.parentNode) lg.parentNode.removeChild(lg); }, 2300);
+  });
+  u.addEventListener('input', function () { err.textContent = ''; }); p.addEventListener('input', function () { err.textContent = ''; });
 })();
 </script>
 <div class="bgphoto" aria-hidden="true"></div>
@@ -770,6 +983,20 @@ body.booting .app{opacity:0}
         <div class="pop-wrap">
           <button class="tool glass" id="bellBtn" aria-label="Notificaciones" aria-expanded="false" title="Notificaciones"><span id="ic-bell"></span><span class="bell-badge" id="bellBadge" hidden>0</span></button>
           <div class="panel glass-2" id="bellPanel" hidden></div>
+        </div>
+        <div class="pop-wrap">
+          <button class="tool glass ubtn" id="userBtn" aria-label="Mi cuenta" aria-expanded="false" title="Mi cuenta"></button>
+          <div class="panel narrow glass-2" id="userPanel" hidden></div>
+        </div>
+        <div class="pop-wrap">
+          <button class="tool glass" id="helpBtn" aria-label="Ayuda y tutorial" aria-expanded="false" title="Tutorial y ayuda"><span id="ic-help"></span></button>
+          <div class="panel narrow glass-2" id="helpPanel" hidden>
+            <div class="nhead"><b>Tutorial y ayuda</b></div>
+            <div class="nlist">
+              <button class="pal" type="button" data-tour-start="full"><span class="nic" id="ic-help-a"></span><span><b>Tour completo</b><small>Todo el programa, paso a paso</small></span></button>
+              <button class="pal" type="button" data-tour-start="view"><span class="nic" id="ic-help-b"></span><span><b>Explicar esta pantalla</b><small id="helpViewTxt">Solo lo que ves ahora</small></span></button>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -812,7 +1039,7 @@ body.booting .app{opacity:0}
     <!-- Pedido seleccionado -->
     <section class="work" id="work" hidden>
       <div class="col">
-        <div class="glass card">
+        <div class="glass card" id="cardData">
           <div class="card-h"><span class="step">1</span><h2>Datos del pedido</h2></div>
           <div class="fields">
             <label class="lab" for="fName">Producto / Referencia
@@ -824,7 +1051,7 @@ body.booting .app{opacity:0}
           </div>
         </div>
 
-        <div class="glass card">
+        <div class="glass card" id="cardMach">
           <div class="card-h">
             <span class="step">2</span>
             <div class="grow"><h2 id="planTitle">Planchas asignadas</h2><p id="planSub">Pulsa para activar y ajusta las uds/hora de cada una</p></div>
@@ -988,6 +1215,7 @@ body.booting .app{opacity:0}
     shirt: svg('<path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>'),
     bell: svg('<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'),
     palette: svg('<circle cx="13.5" cy="6.5" r="1" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.9-4.5-9-10-9z"/>'),
+    help: svg('<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>'),
     play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>',
     pause: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>'
   };
@@ -1068,7 +1296,10 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     var s = Math.max(0, Math.ceil(ms / 1000)), d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
     return (d ? d + ' d ' : '') + pad(h) + ':' + pad(m) + ':' + pad(x);
   }
-  function sortedOrders() { return Array.from(orders.values()).sort(function (a, b) { return (a.createdAt || 0) - (b.createdAt || 0); }); }
+  /* Permisos: cada usuario solo ve los departamentos que tiene asignados (ver el bloque de inicio de sesión) */
+  function can(sec) { return !window.MK_AUTH || MK_AUTH.can(sec); }
+  function visMenu() { return MENU.filter(function (m) { return m.sec ? can(m.sec) : MK_AUTH.isAll(); }); }
+  function sortedOrders() { return Array.from(orders.values()).filter(function (o) { return can(secOf(o)); }).sort(function (a, b) { return (a.createdAt || 0) - (b.createdAt || 0); }); }
   function secOrders() { return sortedOrders().filter(function (o) { return secOf(o) === curSec; }); }
   function cur() { return orders.get(curId) || null; }
   function busyMap(o, now) {
@@ -1100,7 +1331,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     return t;
   }
   function persist() {
-    try { var o = {}; orders.forEach(function (v, k) { o[k] = v; }); localStorage.setItem(STORE, JSON.stringify(o)); }
+    try { var o = {}; orders.forEach(function (v, k) { if (!v.__tour) o[k] = v; }); localStorage.setItem(STORE, JSON.stringify(o)); }
     catch (e) { toast('No se pudo guardar en este navegador.'); }
   }
   function loadStore() {
@@ -1129,13 +1360,14 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     return write(o.id, patch);
   }
   function createOrder() {
+    if (!can(curSec)) return;
     var id = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), pls = {};
     SEC().machines.forEach(function (m) { pls[m.id] = curSec === 'digital' ? { on: false, perRun: null, runMin: null } : { on: false, rate: DEF_RATE }; });
     orders.set(id, { id: id, section: curSec, mode: 'rate', tStart: null, tEnd: null, name: '', qty: null, planchas: pls, status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null, firstStartAt: null, workMs: 0, estMs: null, createdAt: Date.now() });
     persist(); select(id);
   }
   function select(id) {
-    var o = orders.get(id);
+    var o = orders.get(id); if (o && !can(secOf(o))) return;
     if (o && secOf(o) !== curSec) {
       curSec = secOf(o); builtSec = null; distSig = '';
       try { localStorage.setItem('mk_sec', curSec); } catch (e) {}
@@ -1145,6 +1377,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     renderAll();
   }
   function setSection(sec) {
+    if (!can(sec)) return;
     curSec = sec; openSecs = {}; openSecs[sec] = true; saveOpen(); view = 'sec'; try { localStorage.setItem('mk_view', 'sec'); } catch (e) {}
     var f = secOrders()[0]; curId = f ? f.id : null;
     try { localStorage.setItem('mk_sec', sec); localStorage.setItem('mk_cur', curId || ''); } catch (e) {}
@@ -1175,10 +1408,10 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   function renderNav() {
     var now = Date.now(), h = '', list = secOrders();
     h += '<button class="nav-item' + (view === 'home' ? ' on' : '') + '" data-home title="Inicio">' + IC.home + '<span class="lbl">Inicio</span></button>';
-    var nDone = 0; orders.forEach(function (x) { if (x.status === 'done') nDone++; });
+    var nDone = 0; orders.forEach(function (x) { if (x.status === 'done' && can(secOf(x))) nDone++; });
     h += '<button class="nav-item' + (view === 'plant' ? ' on' : '') + '" data-plant title="Vista de planta: todas las máquinas">' + IC.plant + '<span class="lbl">Planta</span></button>';
     h += '<button class="nav-item' + (view === 'hist' ? ' on' : '') + '" data-hist title="Historial de pedidos acabados">' + IC.history + '<span class="lbl">Historial</span><span class="count">' + nDone + '</span></button>';
-    MENU.forEach(function (m) {
+    visMenu().forEach(function (m) {
       if (m.sec) { h += secBlock(m, now); return; }
       h += '<button class="nav-item" disabled title="' + esc(m.label) + ' (en construcción)">' + IC[m.icon] + '<span class="lbl">' + esc(m.label) + '</span><span class="soon">Pronto</span></button>';
     });
@@ -1234,7 +1467,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
 
   function update() {
     var now = Date.now(), o = cur(), S = SEC();
-    $('#demoBar').hidden = !(DEMO_TOOLS && view === 'home');
+    $('#demoBar').hidden = !(DEMO_TOOLS && view === 'home' && MK_AUTH.isAll());
     $('#h1').textContent = view === 'home' ? 'Inicio' : view === 'hist' ? 'Historial' : view === 'plant' ? 'Planta' : S.label; $('#planTitle').textContent = S.Nouns + (S.f ? ' asignadas' : ' asignados'); $('#mActLab').textContent = S.Nouns + (S.f ? ' activas' : ' activos');
     setT($('#allOn'), S.f ? 'Todas' : 'Todos'); setT($('#allOff'), S.f ? 'Ninguna' : 'Ninguno');
     $('#planSub').textContent = (o && modeOf(o) === 'time') ? 'Pulsa para activar ' + (S.f ? 'las ' : 'los ') + S.nouns + ' que trabajarán; el reparto es a partes iguales' : curSec === 'digital' ? 'Pulsa para activar e indica cuántas uds caben por tirada y cuántos minutos dura' : 'Pulsa para activar y ajusta las uds/hora de cada una';
@@ -1483,7 +1716,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
       var state = st === 'running' ? 'run' : holdOf(o) ? 'blk' : 'pause', dl = delayOf(o, now); dls[o.id] = dl;
       activeList(o).forEach(function (p) { var k = secOf(o) + ':' + p.id; if (!ms[k] || rank[state] > rank[ms[k].state]) ms[k] = { o: o, state: state }; });
     });
-    MENU.forEach(function (m) {
+    visMenu().forEach(function (m) {
       if (!m.sec) return;
       var sec = SECTIONS[m.sec], t = '', c = { run: 0, pause: 0, blk: 0, free: 0 };
       sec.machines.forEach(function (mm) {
@@ -1680,20 +1913,20 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     if (notifs.some(function (n) { return n.id === o.id; })) return;
     notifs.push({ id: o.id, name: o.name || '', section: secOf(o), at: at, read: false });
     saveNotifs(); renderBell();
-    toast('Pedido terminado: ' + (o.name || 'sin nombre')); showFin(o, at);
+    if (can(secOf(o))) { toast('Pedido terminado: ' + (o.name || 'sin nombre')); showFin(o, at); }
   }
   function dropNotif(id) { notifs = notifs.filter(function (n) { return n.id !== id; }); saveNotifs(); renderBell(); }
   function renderBell() {
-    var unread = notifs.filter(function (n) { return !n.read; }).length, bd = $('#bellBadge'), btn = $('#bellBtn');
+    var vn = notifs.filter(function (n) { return can(n.section); }), unread = vn.filter(function (n) { return !n.read; }).length, bd = $('#bellBadge'), btn = $('#bellBtn');
     bd.hidden = !unread; bd.textContent = unread > 9 ? '9+' : String(unread);
     btn.classList.toggle('ring', unread > 0);
     btn.setAttribute('aria-label', 'Notificaciones' + (unread ? ' (' + unread + ' sin leer)' : ''));
     var p = $('#bellPanel'); if (p.hidden) return;
-    var now = Date.now(), h = '<div class="nhead"><b>Pedidos terminados</b><div class="minibtns"><button class="mini" data-nact="read"' + (unread ? '' : ' disabled') + '>Marcar leídas</button><button class="mini" data-nact="clear"' + (notifs.length ? '' : ' disabled') + '>Vaciar</button></div></div>';
-    if (!notifs.length) h += '<div class="nempty">Todavía no ha terminado ningún pedido.<br>Cuando uno acabe, aparecerá aquí.</div>';
+    var now = Date.now(), h = '<div class="nhead"><b>Pedidos terminados</b><div class="minibtns"><button class="mini" data-nact="read"' + (unread ? '' : ' disabled') + '>Marcar leídas</button><button class="mini" data-nact="clear"' + (vn.length ? '' : ' disabled') + '>Vaciar</button></div></div>';
+    if (!vn.length) h += '<div class="nempty">Todavía no ha terminado ningún pedido.<br>Cuando uno acabe, aparecerá aquí.</div>';
     else {
       h += '<div class="nlist">';
-      notifs.slice().sort(function (a, b) { return b.at - a.at; }).forEach(function (n) {
+      vn.slice().sort(function (a, b) { return b.at - a.at; }).forEach(function (n) {
         var o = orders.get(n.id), nm = (o && o.name) || n.name || 'Pedido sin nombre', sec = SECTIONS[n.section] ? SECTIONS[n.section].label : '', d = new Date(n.at);
         h += '<button class="nitem' + (n.read ? '' : ' unread') + '" data-notif="' + esc(n.id) + '"><span class="nic">' + IC.check + '</span><span class="nbody"><b>' + esc(nm) + '</b><small>' + esc(sec) + ' · terminó hace ' + fmtDur(Math.max(0, now - n.at)) + ' (' + d.toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + ')</small></span>' + (n.read ? '' : '<span class="ndot"></span>') + '<span class="ngo">' + IC.chev + '</span></button>';
       });
@@ -1726,7 +1959,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     $('#palPanel').innerHTML = h + '</div>';
   }
   function closePanels(except) {
-    ['bell', 'pal'].forEach(function (k) {
+    ['bell', 'pal', 'help', 'user'].forEach(function (k) {
       if (k === except) return;
       $('#' + k + 'Panel').hidden = true; $('#' + k + 'Btn').setAttribute('aria-expanded', 'false');
     });
@@ -1742,10 +1975,13 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     var t = e.target, inside = !!t.closest('.pop-wrap');
     if (t.closest('#bellBtn')) { togglePanel('bell'); return; }
     if (t.closest('#palBtn')) { togglePanel('pal'); return; }
+    if (t.closest('#helpBtn')) { togglePanel('help'); return; }
+    if (t.closest('#userBtn')) { togglePanel('user'); return; }
+    if (t.closest('[data-logout]')) { MK_AUTH.logout(); return; }
     var pb = t.closest('[data-pal]'); if (pb) { applyTheme(pb.getAttribute('data-pal')); return; }
     var na = t.closest('[data-nact]');
     if (na) {
-      if (na.getAttribute('data-nact') === 'read') notifs.forEach(function (n) { n.read = true; }); else notifs = [];
+      if (na.getAttribute('data-nact') === 'read') notifs.forEach(function (n) { if (can(n.section)) n.read = true; }); else notifs = notifs.filter(function (n) { return !can(n.section); });
       saveNotifs(); renderBell(); return;
     }
     var ni = t.closest('[data-notif]');
@@ -1817,7 +2053,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
         var e = endOf(o); if (e != null && (!next || e < endOf(next))) next = o;
       });
       all.forEach(function (o) { var s = statusOf(o, now); if (s === 'paused') { if (holdOf(o)) { nBlk++; activeList(o).forEach(function (p) { blockedM[secOf(o) + ':' + p.id] = o; }); } else paused++; } else if (s === 'planned') planned++; var dl = delayOf(o, now); if (dl && s !== 'planned') nDl++; });
-      MENU.forEach(function (m) { if (m.sec) SECTIONS[m.sec].machines.forEach(function (mm) { nTot++; if (used[m.sec + ':' + mm.id]) nUsed++; }); });
+      visMenu().forEach(function (m) { if (m.sec) SECTIONS[m.sec].machines.forEach(function (mm) { nTot++; if (used[m.sec + ':' + mm.id]) nUsed++; }); });
 
       var h = '<div class="kpis">' +
         kpi(IC.factory, 'var(--accent)', 'En producción', String(run.length), paused + ' en pausa · ' + nBlk + ' bloqueados · ' + planned + ' planificados') +
@@ -1836,7 +2072,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
           '<span class="nr-eta"><b class="mono" data-o="' + id + '" data-k="eta"></b><small>fin ' + endText(endOf(o), now) + '</small></span></button>';
       });
       var nowH = h + '</div>'; h = '<div class="sec-t">Departamentos</div><div class="depts">';
-      MENU.forEach(function (m) {
+      visMenu().forEach(function (m) {
         var sec = m.sec ? SECTIONS[m.sec] : null, n = 0, usedHere = 0, runSec = 0, allSec = 0, dots = '';
         if (sec) {
           n = sec.machines.length;
@@ -1917,7 +2153,7 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     if (sig === histSig) return; histSig = sig;
     var cnt = {}; all.forEach(function (o) { cnt[secOf(o)] = (cnt[secOf(o)] || 0) + 1; });
     var ch = '<button class="hchip' + (histSec === 'all' ? ' on' : '') + '" data-hsec="all">Todos<b>' + all.length + '</b></button>';
-    MENU.forEach(function (m) { if (m.sec) ch += '<button class="hchip' + (histSec === m.sec ? ' on' : '') + '" data-hsec="' + m.sec + '">' + esc(m.label) + '<b>' + (cnt[m.sec] || 0) + '</b></button>'; });
+    visMenu().forEach(function (m) { if (m.sec) ch += '<button class="hchip' + (histSec === m.sec ? ' on' : '') + '" data-hsec="' + m.sec + '">' + esc(m.label) + '<b>' + (cnt[m.sec] || 0) + '</b></button>'; });
     $('#histChips').innerHTML = ch;
     $('#histReset').hidden = histSort.key === 'fin' && histSort.dir === -1;
     var list = histRows(), uds = 0, wk = 0, tot = 0, rows = '';
@@ -2069,6 +2305,25 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
   loadNotifs(); renderPalettes(); renderBell(); setInterval(renderBell, 30000);
   loadStore();
   
+  /* Acceso por departamento: lo que no es del usuario no se muestra ni se puede abrir */
+  function enforceAccess() {
+    if (!MK_AUTH.user) return;
+    var co = curId && orders.get(curId); if (co && !can(secOf(co))) curId = null;
+    if (!can(curSec)) curSec = MK_AUTH.firstSec();
+    if (!curId || !orders.has(curId)) { var f0 = secOrders()[0]; curId = f0 ? f0.id : null; } else curSec = secOf(orders.get(curId));
+    builtSec = null; distSig = ''; builtFor = null; homeSig = ''; plantSig = ''; histSig = '';
+    openSecs = {}; if (view === 'sec') openSecs[curSec] = true;
+  }
+  function paintUser() {
+    var u = MK_AUTH.user; if (!u) return;
+    var ini = u.n.split(/\s+/).map(function (w) { return w.charAt(0); }).join('').slice(0, 2).toUpperCase();
+    $('#userBtn').textContent = ini; $('#userBtn').title = u.n + ' · ' + u.label;
+    var acc = MK_AUTH.isAll() ? MENU.filter(function (m) { return m.sec; }).map(function (m) { return m.label; }) : u.s.map(function (k) { return SECTIONS[k].label; });
+    $('#userPanel').innerHTML = '<div class="uinfo"><b>' + esc(u.n) + '</b><small>@' + esc(u.id) + '</small></div><div class="uinfo" style="padding-top:0"><small>Puedes ver y gestionar:</small><div class="uacc">' + acc.map(function (a) { return '<span>' + esc(a) + '</span>'; }).join('') + '</div></div>' +
+      '<div class="minibtns" style="padding:.2rem .4rem .3rem"><button class="hbtn" type="button" data-logout style="width:100%">Cerrar sesión</button></div>';
+  }
+  MK_AUTH.onLogin(function () { view = 'home'; try { localStorage.setItem('mk_view', 'home'); } catch (e) {} enforceAccess(); paintUser(); renderNav(); update(); renderBell(); window.scrollTo(0, 0); });
+  enforceAccess(); paintUser();
   if (curId && orders.has(curId)) curSec = secOf(orders.get(curId));
   else { var first = secOrders(); curId = first.length ? first[0].id : null; }
   openSecs = {}; if (view === 'sec') openSecs[curSec] = true;
@@ -2082,6 +2337,320 @@ function saveOpen() { try { localStorage.setItem('mk_open', JSON.stringify(openS
     if (!orders.has(curId)) { var r = secOrders(); curId = r.length ? r[0].id : null; }
     renderNav(); update();
   });
+
+  /* ================= TUTORIAL GUIADO =================
+     Se ofrece una sola vez, justo después de la pantalla de carga (se recuerda en localStorage: mk_tour),
+     y se puede repetir cuando se quiera desde el botón «?» de la cabecera (tour completo o solo la pantalla actual).
+     Durante el tour se usa un pedido de ejemplo que NO se guarda (persist() lo ignora) y se borra al terminar.
+     Para quitarlo: borrar este bloque, #helpBtn / #helpPanel del HTML y el CSS «Tutorial guiado». */
+  put('ic-help', IC.help); put('ic-help-a', IC.flag); put('ic-help-b', IC.plant);
+  var TOUR_KEY = 'mk_tour' + (MK_AUTH.user ? ':' + MK_AUTH.user.id : ''), GHOST = 'tour_ghost', tour = null, offerOn = false;
+
+  /* ---------- Los pasos: g = grupo (para «explicar solo esta pantalla»), v = pantalla a mostrar, sel = qué se resalta ---------- */
+  var STEPS = [
+    { g: 'intro', tag: 'Bienvenida', v: 'home', t: 'Bienvenido a Makito Producción',
+      b: '<p>Esta aplicación sirve para <b>planificar y controlar la producción</b> del taller: indicas qué se fabrica, cuántas unidades y qué máquinas lo harán, y el programa calcula <b>cuánto tardará</b> y <b>a qué hora terminará</b>.</p>' +
+         '<p>Vamos a recorrerla paso a paso: el menú, la pantalla de Inicio, la cabecera, los departamentos, la ficha de un pedido, la vista de Planta y el Historial. Pulsa <b>Siguiente</b> para avanzar.</p>' +
+         '<p>Los datos de ejemplo que verás durante el tour <b>no se guardan</b>.</p>' },
+
+    { g: 'menu', tag: 'Menú lateral', t: 'El menú lateral', sel: '.side', pos: 'right',
+      b: '<p>Es la <b>barra de navegación</b> y siempre está a mano. De arriba abajo tiene:</p><ul><li>El logotipo de la empresa.</li><li>Las tres vistas generales: <b>Inicio</b>, <b>Planta</b> e <b>Historial</b>.</li><li>Los <b>departamentos</b> de producción.</li><li>El estado de guardado y el reloj.</li></ul><p>En pantallas pequeñas se reduce a iconos.</p>' },
+    { g: 'menu', tag: 'Menú lateral', t: 'Inicio, Planta e Historial', sel: '[data-home],[data-plant],[data-hist]', pos: 'right',
+      b: '<ul><li><b>Inicio</b>: la vista general de toda la fábrica en una sola pantalla.</li><li><b>Planta</b>: el estado de <b>todas las máquinas</b> de todos los departamentos a la vez.</li><li><b>Historial</b>: los pedidos ya terminados con sus tiempos reales. El número indica cuántos hay.</li></ul><p>El botón resaltado con color es la pantalla en la que estás.</p>' },
+    { g: 'menu', tag: 'Menú lateral', t: 'Los departamentos', sel: '.nav-item[data-sec],.nav-item[disabled]', pos: 'right',
+      b: '<p>Cada departamento tiene sus propias máquinas y sus propios pedidos: <b>Tampografía, Serigrafía Auto, Serigrafía Pulpos, Digital, Láser y Planchas</b>.</p><ul><li>El número de la derecha es la cantidad de pedidos que tiene.</li><li>Al pulsar uno se abre el departamento y se despliega la lista de sus pedidos.</li><li><b>Bordadora</b> y <b>360</b> aparecen como «Pronto»: todavía no están disponibles.</li></ul>' },
+    { g: 'menu', tag: 'Menú lateral', t: 'Estado de guardado y reloj', sel: '.sync', pos: 'right', opt: true,
+      b: '<p>Indica dónde se guardan tus datos y muestra la hora actual con segundos.</p><p>Los pedidos se guardan <b>en este navegador</b>, sin enviarse a ningún servidor, y se guardan solos: no hace falta pulsar nada. Si abres la página en otro ordenador o navegador no verás los mismos pedidos. Entre pestañas del mismo navegador sí se sincronizan.</p>' },
+
+    { g: 'home', tag: 'Inicio', t: 'Indicadores generales', sel: '#home .kpis', pos: 'bottom', v: 'home',
+      b: '<p>La pantalla de <b>Inicio</b> resume la fábrica. Estos indicadores se actualizan en directo:</p><ul><li><b>En producción</b>: pedidos en marcha ahora y cuántos hay en pausa, bloqueados o planificados.</li><li><b>Requieren atención</b>: pedidos bloqueados por una incidencia o con retraso (se pone en rojo si hay alguno).</li><li><b>Máquinas en uso</b>: cuántas trabajan del total y el % de ocupación.</li><li><b>Ritmo combinado</b>: unidades por hora de toda la fábrica.</li><li><b>Próximo en terminar</b>: el pedido que acabará antes, con cuenta atrás.</li></ul>' },
+    { g: 'home', tag: 'Inicio', t: 'Tarjetas de departamento', sel: '#home .depts .dept', first: true, pos: 'auto', v: 'home',
+      b: '<p>Hay una tarjeta por departamento (esta es la primera):</p><ul><li>La etiqueta <b>«N en uso»</b> dice cuántas máquinas trabajan; la barra y el contador (por ejemplo 3 / 12) muestran la ocupación.</li><li>Los <b>cuadraditos</b> son las máquinas: verde = en uso, rojo = bloqueada, gris = libre. Pasa el ratón por encima para ver cuál es.</li><li>Pulsa la tarjeta para entrar en el departamento.</li><li>El icono de <b>cámara</b> te deja poner tu propia foto en la tarjeta (se guarda en este navegador); la ✕ restaura la ilustración.</li></ul>' },
+    { g: 'home', tag: 'Inicio', t: 'En producción ahora', sel: '#home .now', pos: 'top', v: 'home',
+      b: '<p>Lista en vivo de los pedidos que se están fabricando en este momento: nombre, departamento, máquinas, <b>barra de progreso</b>, % y unidades hechas, y el <b>tiempo que falta</b> con la hora prevista de fin.</p><p>Van ordenados por el que acaba antes. Pulsa uno para abrirlo. Si no hay ninguno en marcha, verás un aviso.</p>' },
+    { g: 'home', tag: 'Inicio', t: 'Modo presentación', sel: '#demoBar', pos: 'bottom', opt: true, v: 'home',
+      b: '<p>Barra temporal pensada para <b>enseñar la aplicación</b>:</p><ul><li><b>Cargar datos de demo</b>: crea pedidos de ejemplo (en marcha, en pausa, terminados…) en todos los departamentos para que puedas probarlo todo.</li><li><b>Vaciar todo</b>: borra todos los pedidos.</li></ul><p>Ambos sustituyen los datos reales, así que piden una <b>segunda pulsación para confirmar</b>. Úsalos con cuidado.</p>' },
+
+    { g: 'head', tag: 'Cabecera', t: 'Fecha de hoy', sel: '.datechip', pos: 'bottom',
+      b: '<p>La fecha de hoy, siempre visible arriba a la derecha. A la izquierda, el <b>título grande</b> te dice en qué pantalla o departamento estás.</p>' },
+    { g: 'head', tag: 'Cabecera', t: 'Sonido de avisos', sel: '#sndBtn', pos: 'bottom',
+      b: '<p>Activa o silencia el <b>sonido de avisos</b>. Cuando un pedido llega al 100 % suena una melodía, la pantalla parpadea en verde y sale un aviso con el botón «Ver pedido».</p><p>El navegador solo permite sonido después de tocar la pantalla una vez; si hace falta, la vista de Planta te lo recuerda. El ajuste se recuerda.</p>' },
+    { g: 'head', tag: 'Cabecera', t: 'Paleta de colores', sel: '#palBtn,#palPanel', pos: 'bottom', open: 'pal',
+      b: '<p>Cambia los <b>colores</b> de toda la aplicación entre seis paletas: Taller, Azul y amarillo, Océano, Esmeralda, Índigo y Burdeos.</p><p>Se aplica al instante y se recuerda la próxima vez que entres.</p>' },
+    { g: 'head', tag: 'Cabecera', t: 'Notificaciones', sel: '#bellBtn,#bellPanel', pos: 'bottom', open: 'bell',
+      b: '<p>Aquí se guardan los <b>avisos de pedidos terminados</b>. La campana se agita y muestra un contador rojo cuando hay avisos sin leer.</p><ul><li>Puedes <b>marcarlos como leídos</b> o <b>vaciar</b> la lista.</li><li>Pulsa un aviso para saltar directamente a ese pedido.</li></ul>' },
+    { g: 'head', tag: 'Cabecera', t: 'Ayuda y tutorial', sel: '#helpBtn', pos: 'bottom',
+      b: '<p>Este botón <b>?</b> es el del tutorial. Púlsalo cuando quieras para repetir el <b>tour completo</b> o para que te explique solo la <b>pantalla</b> que tengas delante.</p>' },
+
+    { g: 'work', tag: 'Departamento', t: 'Un departamento y sus pedidos', v: 'work', pos: 'right',
+      sel: function () { return '.nav-item[data-sec="' + curSec + '"],.orders'; },
+      b: function () {
+        return '<p>Al entrar en un departamento (aquí <b>' + esc(SEC().label) + '</b>) el menú despliega <b>sus pedidos</b>. Cada uno muestra:</p><ul><li>Un <b>punto de color</b> con su estado: en marcha (parpadea), en pausa, bloqueado (rojo), planificado (gris) o terminado.</li><li>Su nombre, las unidades, las máquinas asignadas y el ritmo.</li><li>Una <b>barra y un %</b> de avance.</li></ul>' +
+          '<p>Pulsa un pedido para abrirlo, o <b>+ Nuevo pedido</b> para crear otro.</p>' +
+          (cur() && cur().id === GHOST ? '<p>Para el tour usamos un <b>pedido de ejemplo</b> que no se guardará.</p>' : '');
+      } },
+    { g: 'work', tag: 'Pedido · Paso 1', t: 'Datos del pedido', sel: '#cardData', pos: 'right', v: 'work',
+      b: '<p>El <b>paso 1</b> es dar nombre al pedido y decir cuántas unidades hay que fabricar:</p><ul><li><b>Producto / Referencia</b>: el nombre con el que lo reconocerás (producto, cliente…).</li><li><b>Cantidad total (uds)</b>: las unidades del pedido.</li></ul><p>Se guardan solos mientras escribes. Cuando el pedido está <b>en marcha o terminado</b> estos campos se bloquean para no alterar los cálculos.</p>' },
+    { g: 'work', tag: 'Pedido · Paso 2', t: 'Elegir las máquinas', sel: '#cardMach .card-h', pos: 'right', v: 'work',
+      b: '<p>El <b>paso 2</b> es elegir qué máquinas harán el pedido. El título se adapta al departamento (Planchas asignadas, Tampógrafos asignados…).</p><p>Los botones <b>Todas / Ninguna</b> activan o desactivan todas de golpe; las que estén ocupadas por otro pedido en marcha se omiten.</p>' },
+    { g: 'work', tag: 'Pedido · Paso 2', t: 'Cómo se calcula el tiempo', sel: '#modeSeg', pos: 'right', v: 'work',
+      b: '<p>Aquí eliges <b>cómo se calcula</b> el tiempo del pedido:</p><ul><li><b>Uds por hora</b>: tú indicas el ritmo de cada máquina y la aplicación calcula cuánto tardará y cuándo acabará.</li><li><b>Hora de inicio y fin</b>: tú indicas cuándo debe empezar y terminar, y la aplicación calcula el ritmo necesario, repartido a partes iguales entre las máquinas activas. Debajo aparece un resumen con la duración y las uds/h.</li></ul><p>En <b>Digital</b> el ritmo sale de las <b>unidades por tirada</b> y los <b>minutos por tirada</b> de cada impresora.</p>' },
+    { g: 'work', tag: 'Pedido · Paso 2', t: 'Cada máquina', sel: '#grid .pl', first: true, pos: 'auto', v: 'work',
+      b: '<p>Cada casilla es una máquina:</p><ul><li><b>Púlsala</b> para activarla o desactivarla: se marca con un check verde cuando trabaja en este pedido.</li><li>Los botones <b>− y +</b> cambian su ritmo de 10 en 10 uds/h; también puedes escribir el número.</li><li>Si está <b>ocupada por otro pedido en marcha</b>, se resalta con «Produciendo ahora» y no se puede asignar a dos pedidos a la vez.</li></ul>' },
+    { g: 'work', tag: 'Pedido · Panel', t: 'Panel del pedido en curso', sel: '#hero', pos: 'left', v: 'work',
+      b: '<p>Arriba, el nombre y su <b>estado</b>: Sin configurar, Planificado, En producción, En pausa, Bloqueado o Completado.</p><p>El <b>anillo</b> muestra el % completado y, a su lado, el <b>reloj</b>: antes de empezar es el tiempo estimado; con el pedido en marcha es la <b>cuenta atrás</b> del tiempo restante.</p><p>Abajo, una barra con las unidades producidas y el total. Si hay una incidencia o un retraso, aquí aparece un aviso de color.</p>' },
+    { g: 'work', tag: 'Pedido · Panel', t: 'Fin previsto', sel: '#work .end', pos: 'left', v: 'work',
+      b: '<p>El calendario muestra el <b>día</b> y, debajo, la <b>hora exacta</b> en que terminará el pedido, con una frase como «en 3 h 20 min».</p><p>Si aún no ha empezado, es la hora a la que terminaría <b>si lo inicias ahora</b>; se recalcula continuamente.</p>' },
+    { g: 'work', tag: 'Pedido · Panel', t: 'Métricas', sel: '#work .metrics', pos: 'left', v: 'work',
+      b: '<ul><li><b>Cantidad pendiente</b>: unidades que aún faltan por fabricar.</li><li><b>Máquinas activas</b>: cuántas trabajan sobre el total del departamento, y sus nombres.</li><li><b>Tasa combinada</b>: la suma de uds/h de todas las máquinas activas. Las barritas de la derecha muestran cuánto aporta cada una.</li></ul>' },
+    { g: 'work', tag: 'Pedido · Controles', t: 'Iniciar, pausar y reiniciar', sel: '#work .ctrl', pos: 'left', v: 'work',
+      b: '<p>El botón grande hace avanzar el pedido: <b>Iniciar producción</b> → <b>Pausar</b> → <b>Reanudar</b>. Se desactiva y te explica el motivo (en naranja) si falta la cantidad, no hay máquinas activas con ritmo mayor que 0 o alguna máquina está ocupada por otro pedido.</p><ul><li>El botón de la <b>flecha circular</b> reinicia el pedido desde cero.</li><li>El de la <b>papelera</b> lo elimina.</li></ul><p>Ambos piden una segunda pulsación para confirmar. Al llegar al 100 % el pedido se <b>cierra solo</b>, suena el aviso y pasa al Historial.</p>' },
+    { g: 'work', tag: 'Pedido · Controles', t: 'Registrar una incidencia', sel: '#work .blk-row', pos: 'left', v: 'work',
+      b: '<p>Se activa cuando el pedido está en marcha o en pausa. Elige el motivo: <b>Control de Calidad, Avería de máquina, Falta de material</b> o <b>Parado por un pedido más urgente</b>.</p><p>El pedido pasa a <b>Bloqueado</b> (en rojo), se cuenta el tiempo que lleva parado, se anota solo en Observaciones y se ve en Inicio y en Planta. Para seguir, pulsa <b>Desbloquear y reanudar</b>.</p>' },
+    { g: 'work', tag: 'Pedido · Reparto', t: 'Reparto de piezas', sel: '#distCard', pos: 'top', opt: true, v: 'work',
+      b: '<p>Cuántas unidades le tocan a <b>cada máquina</b> según su ritmo (con su porcentaje) y cuántas lleva hechas en directo. En Digital indica también el número de tiradas.</p><p>Solo aparece cuando hay máquinas activas.</p>' },
+    { g: 'work', tag: 'Pedido · Notas', t: 'Observaciones', sel: '#notesCard', pos: 'top', v: 'work',
+      b: '<p>El cuaderno del pedido. Anota paradas, cambios de prioridad, bloqueos de calidad… con los <b>botones rápidos</b> o escribiendo tu propio texto (<b>Ctrl + Intro</b> para añadir).</p><p>Cada nota se guarda con fecha y hora, la más reciente arriba, y se borra con la ✕. Las incidencias y los desbloqueos se anotan solos. Las observaciones se incluyen al exportar el historial.</p>' },
+
+    { g: 'plant', tag: 'Planta', t: 'La vista de Planta', sel: '#plantLeg', pos: 'bottom', v: 'plant',
+      b: '<p>Enseña <b>todas las máquinas del taller</b> de un vistazo, ideal para saber qué pasa ahora mismo.</p><p>La leyenda cuenta cuántas máquinas están <b>produciendo, en pausa, bloqueadas y libres</b>, y cuántos pedidos van con <b>retraso</b>.</p>' },
+    { g: 'plant', tag: 'Planta', t: 'Departamentos y máquinas', sel: '#plantBody .p-dept', first: true, pos: 'auto', v: 'plant',
+      b: '<p>Cada departamento es un bloque (arriba, cuántas máquinas producen, están paradas o libres) y cada máquina una casilla:</p><ul><li><b>Verde</b>: produciendo, con el nombre del pedido y su %.</li><li><b>En pausa</b>, o <b>rojo parpadeante</b> si está bloqueada, con el motivo.</li><li><b>Apagada</b>: libre.</li><li>Un borde naranja con «+tiempo» indica que el pedido va <b>con retraso</b>.</li></ul><p>Pulsa una casilla ocupada para abrir su pedido.</p>' },
+    { g: 'plant', tag: 'Planta', t: 'Modo taller', sel: '#tvBtn', pos: 'bottom', v: 'plant',
+      b: '<p>Pone la Planta a <b>pantalla completa</b>, oculta el menú y agranda las casillas para proyectarla en una <b>pantalla grande del taller</b>.</p><p>Para salir, pulsa el mismo botón o la tecla <b>Esc</b>.</p>' },
+
+    { g: 'hist', tag: 'Historial', t: 'Buscar y filtrar', sel: '.hist-tools', pos: 'bottom', v: 'hist',
+      b: '<p>El <b>Historial</b> guarda los pedidos terminados con sus tiempos reales.</p><ul><li>Los <b>chips</b> filtran por departamento y muestran cuántos hay.</li><li>El <b>buscador</b> filtra por nombre de pedido o de departamento.</li><li><b>Orden por defecto</b> aparece cuando cambias el orden y lo restaura.</li><li><b>Exportar</b> descarga un CSV que se abre en Excel, con el filtro y el orden que estés viendo.</li></ul>' },
+    { g: 'hist', tag: 'Historial', t: 'Resumen', sel: '#histKpis', pos: 'bottom', v: 'hist',
+      b: '<p>Resume lo que se está mostrando (cambia con el filtro): <b>pedidos terminados</b>, <b>unidades producidas</b>, <b>tiempo medio por pedido</b> (de inicio a fin, con pausas) y <b>ritmo medio real</b> en uds/h, contando solo el tiempo en marcha.</p>' },
+    { g: 'hist', tag: 'Historial', t: 'La tabla', sel: '#histTable', pos: 'top', v: 'hist',
+      b: '<p>Una fila por pedido: departamento, máquinas, unidades, <b>inicio y fin</b>, tiempo <b>previsto</b> frente al <b>real</b> y la <b>desviación</b> (verde si se cumplió el plazo, rojo si hubo retraso), además del ritmo medio.</p><ul><li>Pulsa el título de una <b>columna</b> para ordenar; otra pulsación invierte el orden.</li><li>Pulsa una <b>fila</b> para abrir ese pedido.</li></ul>' },
+
+    { g: 'end', tag: 'Final', t: '¡Listo! Ya conoces todo el programa', v: 'home',
+      b: '<p>Este es el <b>flujo de trabajo</b> de siempre:</p><ol><li>Entra en un departamento y pulsa <b>+ Nuevo pedido</b>.</li><li>Escribe el nombre y la cantidad.</li><li>Activa las máquinas y ajusta su ritmo (o elige hora de inicio y fin).</li><li>Pulsa <b>Iniciar producción</b> y sigue el pedido en Inicio y Planta.</li></ol><p>Cuando termine te avisará la campana y quedará en el Historial. Tus datos se guardan en <b>este navegador</b>.</p><p>Puedes repetir el tutorial cuando quieras con el botón <b>?</b> de la cabecera.</p>' }
+  ];
+  var HINT = [{ g: 'hint', tag: 'Consejo', t: '¿Prefieres verlo más tarde?', sel: '#helpBtn', pos: 'bottom',
+    b: '<p>Sin problema. Cuando quieras, pulsa este botón <b>?</b> para repetir el tutorial: puedes hacer el <b>tour completo</b> o que te explique solo la <b>pantalla</b> en la que estés.</p>' }];
+
+  /* ---------- Utilidades del tour ---------- */
+  function tourSeen() { try { return !!localStorage.getItem(TOUR_KEY); } catch (e) { return false; } }
+  function tourMark(v) { try { localStorage.setItem(TOUR_KEY, v); } catch (e) {} $('#helpBtn').classList.remove('attn'); }
+  function lockApp(on) { var a = $('#app'); if (!a) return; if (on) a.setAttribute('inert', ''); else a.removeAttribute('inert'); }
+
+  /* Pedido de ejemplo: vive solo en memoria (persist() ignora lo marcado con __tour) */
+  function ensureGhost(sec) {
+    var g = orders.get(GHOST);
+    if (g && secOf(g) === sec) return g;
+    if (g) orders.delete(GHOST);
+    var S = SECTIONS[sec], now = Date.now(), pls = {}, dig = sec === 'digital', n = 0, rates = [100, 120, 80, 100];
+    S.machines.forEach(function (m) { pls[m.id] = dig ? { on: false, perRun: null, runMin: null } : { on: false, rate: DEF_RATE }; });
+    g = { id: GHOST, __tour: true, section: sec, mode: 'rate', tStart: null, tEnd: null, name: 'Ejemplo del tutorial', qty: 5000, planchas: pls, status: 'planned', producedBase: 0, runStartedAt: null, finishedAt: null, firstStartAt: null, workMs: 0, estMs: null, createdAt: now };
+    orders.set(GHOST, g);
+    var busy = busyMap(g, now);
+    S.machines.forEach(function (m) { if (n < 4 && !busy[m.id]) { pls[m.id] = dig ? { on: true, perRun: 60, runMin: 45 } : { on: true, rate: rates[n] }; n++; } });
+    return g;
+  }
+  /* Cambia de pantalla sin tocar lo que el usuario tenía guardado */
+  function tourView(v, ctx) {
+    closePanels(null);
+    if (v === 'home') { view = 'home'; homeSig = ''; openSecs = {}; }
+    else if (v === 'plant') { view = 'plant'; plantSig = ''; openSecs = {}; }
+    else if (v === 'hist') { view = 'hist'; histSig = ''; histSort = { key: 'fin', dir: -1 }; histSec = 'all'; openSecs = {}; }
+    else if (v === 'work') {
+      var real = ctx && view === 'sec' && cur() && cur().id !== GHOST;
+      if (!real) { var sec = (ctx && view === 'sec') ? curSec : (can('planchas') ? 'planchas' : MK_AUTH.firstSec()); ensureGhost(sec); curSec = sec; curId = GHOST; }
+      builtSec = null; distSig = ''; builtFor = null; view = 'sec'; openSecs = {}; openSecs[curSec] = true;
+    } else return;
+    renderAll(); window.scrollTo(0, 0);
+  }
+  function tourEls(s) {
+    var sel = s && (typeof s.sel === 'function' ? s.sel() : s.sel); if (!sel) return [];
+    var l = $$(sel).filter(function (e) { var b = e.getBoundingClientRect(); return b.width > 0 && b.height > 0; });
+    return s.first ? l.slice(0, 1) : l;
+  }
+  function tourRect(els) {
+    if (!els.length) return null;
+    var L = 1e9, T = 1e9, R = -1e9, B = -1e9;
+    els.forEach(function (e) { var b = e.getBoundingClientRect(); L = Math.min(L, b.left); T = Math.min(T, b.top); R = Math.max(R, b.right); B = Math.max(B, b.bottom); });
+    return { left: L, top: T, right: R, bottom: B, width: R - L, height: B - T };
+  }
+
+  /* ---------- Colocar el foco y la tarjeta ---------- */
+  function tourPlace(r) {
+    var hole = $('#tourHole'), card = $('#tourCard'); if (!hole || !card) return;
+    var vw = window.innerWidth, vh = window.innerHeight, m = 12, gap = 16, cw = card.offsetWidth, ch = card.offsetHeight, x, y, k;
+    card.style.opacity = '1';
+    if (!r) {
+      hole.className = 'tour-hole none'; hole.style.left = vw / 2 + 'px'; hole.style.top = vh / 2 + 'px'; hole.style.width = '0px'; hole.style.height = '0px';
+      card.style.left = Math.max(m, (vw - cw) / 2) + 'px'; card.style.top = Math.max(m, (vh - ch) / 2) + 'px'; return;
+    }
+    var x0 = Math.max(r.left - 6, 4), y0 = Math.max(r.top - 6, 4), x1 = Math.min(r.right + 6, vw - 4), y1 = Math.min(r.bottom + 6, vh - 4);
+    hole.className = 'tour-hole'; hole.style.left = x0 + 'px'; hole.style.top = y0 + 'px'; hole.style.width = Math.max(0, x1 - x0) + 'px'; hole.style.height = Math.max(0, y1 - y0) + 'px';
+    var pos = tour.list[tour.i].pos || 'auto', small = vw < 700, fit = false;
+    var order = small ? ['bottom', 'top'] : pos === 'auto' ? ['bottom', 'right', 'left', 'top'] : [pos, 'bottom', 'right', 'left', 'top'];
+    for (k = 0; k < order.length; k++) {
+      var sd = order[k];
+      if (sd === 'bottom') { x = (x0 + x1) / 2 - cw / 2; y = y1 + gap; fit = y + ch <= vh - m; }
+      else if (sd === 'top') { x = (x0 + x1) / 2 - cw / 2; y = y0 - gap - ch; fit = y >= m; }
+      else if (sd === 'right') { x = x1 + gap; y = (y0 + y1) / 2 - ch / 2; fit = x + cw <= vw - m; }
+      else { x = x0 - gap - cw; y = (y0 + y1) / 2 - ch / 2; fit = x >= m; }
+      if (fit) break;
+    }
+    if (!fit) { x = small ? (vw - cw) / 2 : vw - cw - m; y = vh - ch - m; }   /* no cabe a ningún lado: se coloca encima, abajo */
+    card.style.left = Math.min(Math.max(m, x), Math.max(m, vw - cw - m)) + 'px';
+    card.style.top = Math.min(Math.max(m, y), Math.max(m, vh - ch - m)) + 'px';
+  }
+  /* Si lo resaltado queda fuera de la pantalla (o bajo la tarjeta en el móvil), desplaza la página hasta verlo */
+  function tourReveal(r) {
+    var vh = window.innerHeight, ch = $('#tourCard').offsetHeight, limit = window.innerWidth < 700 ? vh - ch - 24 : vh - 10;
+    if (r.top >= 8 && r.bottom <= limit) return;
+    var tall = r.height > limit - 70, dy = tall ? r.top - 70 : (r.top + r.bottom) / 2 - (70 + limit) / 2;
+    if (Math.abs(dy) > 3) window.scrollBy({ top: dy, behavior: 'smooth' });
+  }
+  /* Bucle: mantiene el foco pegado a su elemento aunque la página se redibuje, se desplace o cambie de tamaño */
+  function tourLoop() {
+    var t = tour; if (!t) return;
+    t.raf = requestAnimationFrame(tourLoop);
+    var s = t.list[t.i]; if (!s) return;
+    var r = tourRect(tourEls(s)), card = $('#tourCard'); if (!card) return;
+    var key = (r ? [r.left, r.top, r.width, r.height].map(Math.round).join() : 'x') + '|' + window.innerWidth + 'x' + window.innerHeight + '|' + card.offsetHeight;
+    if (key === t.key) return; t.key = key;
+    if (r && t.reveal) { t.reveal = false; tourReveal(r); }
+    tourPlace(r);
+  }
+
+  /* ---------- Mostrar un paso ---------- */
+  function tourShow(i, dir) {
+    var t = tour; if (!t) return;
+    if (i >= t.list.length) { tourEnd(true); return; }
+    if (i < 0) i = 0;
+    var s = t.list[i];
+    if (s.v && s.v !== t.curV) { tourView(s.v, t.ctx); t.curV = s.v; }
+    closePanels(null);
+    if (s.open) { var p = $('#' + s.open + 'Panel'); if (p && p.hidden) togglePanel(s.open); }
+    if (s.opt && !tourEls(s).length) { var n = i + dir; if (n >= 0) { tourShow(n, dir); return; } }   /* paso opcional sin elemento: se salta */
+    t.i = i; t.key = ''; t.reveal = true;
+    var root = $('#tourRoot'), mini = t.list.length === 1, last = i === t.list.length - 1;
+    root.classList.add('anim'); clearTimeout(t.animT); t.animT = setTimeout(function () { root.classList.remove('anim'); }, 450);
+    $('#tourTag').textContent = s.tag;
+    $('#tourCount').textContent = mini ? '' : (i + 1) + ' / ' + t.list.length;
+    $('#tourProg').style.width = (mini ? 100 : (i + 1) / t.list.length * 100) + '%';
+    $('#tourProgW').hidden = mini;
+    $('#tourTitle').textContent = s.t;
+    $('#tourBody').innerHTML = typeof s.b === 'function' ? s.b() : s.b;
+    $('#tourPrev').hidden = mini; $('#tourPrev').disabled = i === 0;
+    $('#tourSkip').hidden = mini; $('#tourKeys').hidden = mini;
+    $('#tourNext').textContent = mini ? 'Entendido' : last ? 'Terminar' : 'Siguiente →';
+    $('#tourCard').scrollTop = 0;
+    $('#tourNext').focus({ preventScroll: true });
+  }
+
+  /* ---------- Empezar y terminar ---------- */
+  function tourStart(mode) {
+    if (tour || offerOn) return;
+    closePanels(null);
+    document.body.classList.remove('tv'); try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+    var cv = view === 'sec' ? 'work' : view, list;
+    if (mode === 'hint') list = HINT;
+    else if (mode === 'view') list = STEPS.filter(function (s) { return s.g === cv; });
+    else list = STEPS;
+    if (mode !== 'hint' && !tourSeen()) tourMark('started');
+    tour = { list: list, i: 0, mode: mode, mini: mode === 'hint', ctx: mode === 'view', curV: null, key: '', raf: 0,
+      snap: { view: view, curSec: curSec, curId: curId, openSecs: JSON.parse(JSON.stringify(openSecs)), sort: histSort, hsec: histSec, y: window.scrollY } };
+    var r = document.createElement('div'); r.className = 'tour-root'; r.id = 'tourRoot';
+    r.innerHTML = '<div class="tour-hole none" id="tourHole"></div>' +
+      '<div class="tour-card" id="tourCard" role="dialog" aria-modal="true" aria-labelledby="tourTitle" tabindex="-1">' +
+        '<div class="tour-top"><span class="tour-tag" id="tourTag"></span><span class="tour-count mono" id="tourCount"></span><button type="button" class="tour-x" id="tourX" aria-label="Cerrar el tutorial" title="Cerrar el tutorial">✕</button></div>' +
+        '<div class="tour-prog" id="tourProgW"><i id="tourProg"></i></div>' +
+        '<h3 id="tourTitle"></h3><div class="tour-body" id="tourBody"></div>' +
+        '<div class="tour-foot"><button type="button" class="tour-skip" id="tourSkip">Saltar tutorial</button><span class="sp"></span><button type="button" class="hbtn" id="tourPrev">← Anterior</button><button type="button" class="hbtn pri" id="tourNext">Siguiente →</button></div>' +
+        '<div class="tour-keys" id="tourKeys">Puedes usar las flechas ← → del teclado · Esc para salir</div>' +
+      '</div>';
+    r.addEventListener('click', function (e) {   /* stopPropagation: así el resto de la app no cierra paneles ni reacciona */
+      e.stopPropagation();
+      var b = e.target.closest('button'); if (!b || !tour) return;
+      if (b.id === 'tourNext') tourShow(tour.i + 1, 1);
+      else if (b.id === 'tourPrev') tourShow(tour.i - 1, -1);
+      else if (b.id === 'tourSkip' || b.id === 'tourX') tourEnd(false);
+    });
+    document.body.appendChild(r); lockApp(true);
+    tourShow(0, 1);
+    tour.raf = requestAnimationFrame(tourLoop);
+  }
+  function tourEnd(done) {
+    var t = tour; if (!t) return; tour = null;
+    cancelAnimationFrame(t.raf); clearTimeout(t.animT);
+    var r = $('#tourRoot'); if (r) r.parentNode.removeChild(r);
+    lockApp(false); closePanels(null);
+    if (!t.mini) {
+      var sn = t.snap;                                   /* se deja todo como estaba antes del tour */
+      orders.delete(GHOST);
+      view = sn.view; curSec = sn.curSec; curId = sn.curId; openSecs = sn.openSecs; histSort = sn.sort; histSec = sn.hsec;
+      builtSec = null; builtFor = null; distSig = ''; homeSig = ''; plantSig = ''; histSig = '';
+      renderAll(); window.scrollTo(0, sn.y);
+      if (done) { tourMark('done'); toast('Tutorial terminado. Puedes repetirlo con el botón ? de la cabecera.'); }
+    }
+    try { $('#helpBtn').focus({ preventScroll: true }); } catch (e) {}
+  }
+
+  /* ---------- Pregunta de bienvenida (solo la primera vez) ---------- */
+  function tourOffer() {
+    if (tour || offerOn || tourSeen()) return;
+    offerOn = true;
+    var r = document.createElement('div'); r.className = 'tour-root offer'; r.id = 'tourOffer';
+    r.innerHTML = '<div class="tour-hole none"></div>' +
+      '<div class="tour-card tour-offer" role="dialog" aria-modal="true" aria-labelledby="tourOfferT" tabindex="-1">' +
+        '<div class="tour-ic">' + IC.help + '</div>' +
+        '<h3 id="tourOfferT">¡Bienvenido a Makito Producción!</h3>' +
+        '<div class="tour-body"><p>¿Quieres hacer un <b>recorrido guiado</b> por el programa? Te explico con texto cada sección y cada función, paso a paso. Dura unos 3 minutos y puedes salir cuando quieras.</p>' +
+        '<p class="tour-mute">Si prefieres verlo más tarde, podrás activarlo desde el botón <b>?</b> de arriba a la derecha.</p></div>' +
+        '<div class="tour-foot"><button type="button" class="hbtn" id="tourNo">Ahora no</button><button type="button" class="hbtn pri" id="tourYes">Sí, empezar el tour</button></div>' +
+      '</div>';
+    r.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.id === 'tourYes') tourAnswer(true); else if (b.id === 'tourNo') tourAnswer(false);
+    });
+    document.body.appendChild(r); lockApp(true);
+    $('#tourYes').focus({ preventScroll: true });
+  }
+  function tourAnswer(yes) {
+    var r = $('#tourOffer'); if (r) r.parentNode.removeChild(r);
+    offerOn = false; lockApp(false);
+    if (yes) { tourMark('started'); setTimeout(function () { tourStart('full'); }, 150); }
+    else { tourMark('declined'); setTimeout(function () { tourStart('hint'); }, 250); }   /* le enseñamos dónde está el botón */
+  }
+
+  /* ---------- Teclado y botón «?» ---------- */
+  document.addEventListener('keydown', function (e) {
+    if (!tour && !offerOn) return;
+    var box = $(tour ? '#tourCard' : '#tourOffer .tour-card');
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); if (tour) tourEnd(false); else tourAnswer(false); return; }
+    if (tour && !tour.mini && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { e.preventDefault(); e.stopPropagation(); if (e.key === 'ArrowRight') tourShow(tour.i + 1, 1); else if (tour.i > 0) tourShow(tour.i - 1, -1); return; }
+    if (e.key === 'Tab' && box) {                       /* el foco se queda dentro de la tarjeta */
+      var f = $$('button:not([disabled]):not([hidden])', box); if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (!box.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }, true);
+  document.addEventListener('click', function (e) {
+    var st = e.target.closest('[data-tour-start]');
+    if (st) { var m = st.getAttribute('data-tour-start'); closePanels(null); setTimeout(function () { tourStart(m); }, 80); return; }
+    if (e.target.closest('#helpBtn')) {
+      $('#helpBtn').classList.remove('attn');
+      var nm = { home: 'Inicio', plant: 'Planta', hist: 'Historial', sec: SEC().label }[view];
+      $('#helpViewTxt').textContent = 'Solo lo de la pantalla «' + nm + '»';
+    }
+  });
+  if (!tourSeen()) $('#helpBtn').classList.add('attn');
+  /* La pregunta aparece cuando la pantalla de carga ya se ha ido */
+  MK_AUTH.onLogin(function (u) { TOUR_KEY = 'mk_tour:' + u.id; $('#helpBtn').classList.toggle('attn', !tourSeen()); });
+  (function waitSplash() {
+    if (!MK_AUTH.user || document.getElementById('login') || document.getElementById('splash')) { setTimeout(waitSplash, 250); return; }
+    setTimeout(tourOffer, 700);
+  })();
 })();
 </script>
 </body>
