@@ -606,8 +606,24 @@ body.booting .app{opacity:0}
 @keyframes lgShake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
 .lg-stage.ok{animation:lgOk .9s cubic-bezier(.5,0,.2,1) forwards}
 @keyframes lgOk{0%{opacity:1}100%{opacity:0;transform:translateZ(520px) rotateX(-8deg)}}
+/* Tarjeta de acceso de prueba: aparece bajo el formulario cuando este ya ha entrado */
+.lg-demo{position:relative;width:min(26rem,calc(100vw - 2rem));margin-top:.8rem;padding:.85rem 1.1rem .95rem;border-radius:1.2rem;display:flex;flex-direction:column;gap:.55rem;background:linear-gradient(rgba(var(--accent-2-rgb),.07),rgba(var(--accent-2-rgb),.02)),rgba(var(--bg-rgb),.72);border:1px dashed rgba(var(--accent-2-rgb),.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 60px -30px rgba(0,0,0,.8);transform:translateZ(10px);transform-origin:50% 0;animation:lgDemoIn .7s cubic-bezier(.2,1.35,.4,1) 1.05s both;transition:opacity .3s,transform .3s}
+.lg-demo.gone{opacity:0;transform:translateY(-10px) scale(.96)}
+@keyframes lgDemoIn{from{opacity:0;transform:translateY(-18px) scale(.92)}}
+.lg-demo-tag{align-self:flex-start;padding:.2rem .6rem;border-radius:99px;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-2);background:rgba(var(--accent-2-rgb),.14)}
+.lg-demo-txt{margin:0;padding-right:1.6rem;font-size:.78rem;line-height:1.4;color:var(--ink-2)}
+.lg-demo-row{display:flex;flex-wrap:wrap;align-items:stretch;gap:.5rem}
+.lg-demo-cred{flex:1 1 5.5rem;display:flex;flex-direction:column;gap:.1rem;padding:.4rem .7rem;border-radius:.75rem;background:var(--well);border:1px solid var(--line)}
+.lg-demo-cred small{font-size:.64rem;color:var(--ink-3)}
+.lg-demo-cred b{font-family:var(--font-num);font-size:.95rem;color:var(--ink)}
+.lg-demo-go{flex:1 1 5.5rem;padding:.5rem .8rem;border-radius:.75rem;font-weight:800;font-size:.82rem;color:var(--accent-2);border:1px solid rgba(var(--accent-2-rgb),.55);background:rgba(var(--accent-2-rgb),.1);transition:background .2s,box-shadow .2s}
+.lg-demo-go:hover{background:rgba(var(--accent-2-rgb),.2);box-shadow:0 0 0 4px rgba(var(--accent-2-rgb),.12)}
+.lg-demo-go:focus-visible,.lg-demo-x:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
+.lg-demo-x{position:absolute;top:.5rem;right:.5rem;width:1.9rem;height:1.9rem;border-radius:.6rem;display:grid;place-items:center;color:var(--ink-3)}
+.lg-demo-x:hover{color:var(--ink);background:var(--glass-2)}
+.lg-demo-x svg{width:.95rem;height:.95rem}
 @media (max-width:700px){.lg-tiles i:nth-child(n+5){display:none}.lg-tiles i:nth-child(1){--x:-22!important;--y:-41!important;--s:84!important}.lg-tiles i:nth-child(2){--x:22!important;--y:-41!important;--s:78!important}.lg-tiles i:nth-child(3){--x:-22!important;--y:41!important;--s:78!important}.lg-tiles i:nth-child(4){--x:22!important;--y:41!important;--s:80!important}.lg-card{padding:1.2rem 1.2rem 1.2rem}}
-@media (max-height:640px){.lg-sub,.lg-foot{display:none}.lg-logo{width:11rem}}
+@media (max-height:640px){.lg-sub,.lg-foot,.lg-demo-txt{display:none}.lg-logo{width:11rem}}
 html.is-login .app,html.is-login .bgphoto{visibility:hidden}
 /* Usuario en la cabecera */
 .ubtn{font-weight:800;font-size:.82rem;letter-spacing:.02em;color:var(--accent)}
@@ -857,6 +873,16 @@ window.__mkSplash = function () {
       <button class="lg-go" id="lgGo" type="submit"><span id="lgGoT">Entrar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <p class="lg-foot">¿No puedes entrar? Habla con tu responsable.</p>
     </form>
+    <aside class="lg-demo" id="lgDemo" aria-labelledby="lgDemoT">
+      <button type="button" class="lg-demo-x" id="lgDemoX" aria-label="Ocultar el acceso de prueba" title="Ocultar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <span class="lg-demo-tag" id="lgDemoT">Acceso de prueba</span>
+      <p class="lg-demo-txt">¿Vienes a probar la aplicación? Entra con esta cuenta: ve todos los departamentos.</p>
+      <div class="lg-demo-row">
+        <span class="lg-demo-cred"><small>Usuario</small><b>test</b></span>
+        <span class="lg-demo-cred"><small>Contraseña</small><b>test</b></span>
+        <button type="button" class="lg-demo-go" id="lgDemoGo">Rellenar</button>
+      </div>
+    </aside>
   </div>
 </div>
 <script>
@@ -873,6 +899,7 @@ window.__mkSplash = function () {
   U('ramonlaser', 'Ramón', ['laser'], 'Láser'); U('adrianlaser', 'Adrián', ['laser'], 'Láser');
   U('melchormkt', 'Melchor', ALL, 'Todos los departamentos'); U('oscarmkt', 'Óscar', ALL, 'Todos los departamentos'); U('pacoteruel', 'Paco Teruel', ALL, 'Todos los departamentos');
   U('josealbertomkt', 'José Alberto', ALL, 'Todos los departamentos'); U('franciscoparra', 'Francisco Parra', ALL, 'Todos los departamentos');
+  U('test', 'Invitado', ALL, 'Cuenta de prueba · todos los departamentos');   /* acceso público para probar la app (test / test); se anuncia en la tarjeta de debajo del formulario */
   var ORDER = ['tampografia', 'serigrafia', 'pulpos', 'digital', 'laser', 'planchas'], hooks = [];
   var A = window.MK_AUTH = {
     user: null,
@@ -923,6 +950,22 @@ window.__mkSplash = function () {
 
   document.getElementById('lgEye').addEventListener('click', function () {
     var show = p.type === 'password'; p.type = show ? 'text' : 'password'; this.setAttribute('aria-label', show ? 'Ocultar la contraseña' : 'Mostrar la contraseña'); this.title = this.getAttribute('aria-label'); p.focus();
+  });
+
+  /* ----- Acceso de prueba: «Rellenar» escribe test / test en el formulario y deja el foco en Entrar ----- */
+  var demo = document.getElementById('lgDemo'), typing = false;
+  document.getElementById('lgDemoGo').addEventListener('click', function () {
+    if (typing || busy) return;
+    var seq = 'testtest', i = 0; err.textContent = '';
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { u.value = p.value = 'test'; go.focus(); return; }
+    typing = true; u.value = ''; p.value = '';
+    (function step() {
+      if (i < 4) u.value += seq.charAt(i); else p.value += seq.charAt(i);
+      if (++i < seq.length) setTimeout(step, 55); else { typing = false; go.focus(); }
+    })();
+  });
+  document.getElementById('lgDemoX').addEventListener('click', function () {
+    demo.classList.add('gone'); setTimeout(function () { demo.hidden = true; }, 300); u.focus();
   });
 
   /* ----- Entrar (con un pequeño freno tras varios fallos) ----- */
